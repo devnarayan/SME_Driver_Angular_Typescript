@@ -1,0 +1,62 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Driver: {{summary.driver}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>VIN Count: {{summary.vinCount}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Load Count: {{summary.loadCount}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Comm: {{summary.comm}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Expenses: {{summary.expenses}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Adjustments: {{summary.adjustments}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label>State: {{summary.state}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Due Driver: {{summary.expenses}}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Truck Number: {{summary.truck}}</label>
+        </div>
+    </div>
+</div>
+
+
+
+
+<span class="mat-input-error">{{message}}</span>
+<div md-dialog-actions>
+    <!-- [md-dialog-close]="summary" -->
+    <button md-button (click)="onOkClick()" tabindex="8">Ok</button>
+    <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

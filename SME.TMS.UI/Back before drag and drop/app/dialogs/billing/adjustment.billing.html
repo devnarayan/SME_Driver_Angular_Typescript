@@ -1,0 +1,62 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Tracking Id: {{invoiceModel.trackingIdNumber}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Load Number: {{invoiceModel.dispatchLoadNumber}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Driver Rate: {{invoiceModel.driverRate}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Driver FSC: {{invoiceModel.driverFuelSurcharge}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Manufacturer Rate: {{invoiceModel.manufacturerRate}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Manufacturer FSC: {{invoiceModel.manufacturerFuelSurcharge}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    
+<div class="form-group">
+  <label>Terminal: {{invoiceModel.terminal}}</label>
+</div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Delivery Date: {{invoiceModel.deliveryDate | date:'MM/dd/yyyy'}}</label>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Truck Number: {{invoiceModel.truckNumber}}</label>
+    </div>
+  </div>
+</div>
+
+
+
+ 
+<span class="mat-input-error">{{message}}</span>
+<div md-dialog-actions>
+    <!-- [md-dialog-close]="data" -->
+  <button md-button (click)="onOkClick()" tabindex="8">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

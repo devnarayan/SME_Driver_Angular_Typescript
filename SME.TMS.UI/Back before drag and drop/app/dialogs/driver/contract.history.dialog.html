@@ -1,0 +1,43 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<md-input-container>
+  <input placeholder="Contract" mdInput tabindex="1"
+  [formControl]="contractFormControl" [(ngModel)]="data.driverContractNumber">
+  <md-error *ngIf="contractFormControl.hasError('required')">
+      Contract is
+      <strong>required</strong>
+    </md-error>
+</md-input-container><br>
+<md-input-container>
+    <input placeholder="Description" mdInput tabindex="2" [(ngModel)]="data.driverContractName">
+  </md-input-container>
+<br/> 
+<div class="form-group">
+    <md-input-container>
+       <!--  -->
+      <input mdInput [mdDatepicker]="pickerstartdate" tabindex="3" placeholder="Start Date"
+      [formControl]="contractStartDateFormControl" name="contractStartDate" [(ngModel)]="data.driverContractStartDate">
+      <button mdSuffix [mdDatepickerToggle]="pickerstartdate"></button>
+      <md-error *ngIf="contractStartDateFormControl.hasError('required')">
+        Start date is
+        <strong>required</strong>
+      </md-error>
+    </md-input-container>
+    <md-datepicker #pickerstartdate></md-datepicker>
+  </div>
+  <div class="form-group">
+    <md-input-container>
+      <input mdInput [mdDatepicker]="pickerenddate" tabindex="4" placeholder="EndDate" 
+        [(ngModel)]="data.driverContractEndDate">
+      <button mdSuffix [mdDatepickerToggle]="pickerenddate"></button>
+    </md-input-container>
+    <md-datepicker #pickerenddate></md-datepicker>
+
+  </div>
+  <span class="mat-input-error">{{message}}</span>
+<div md-dialog-actions>
+  <button md-button (click)="onOkClick()" tabindex="5">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

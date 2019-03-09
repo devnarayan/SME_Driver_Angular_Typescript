@@ -1,0 +1,4 @@
+.active-class {
+    background: hsla(0,0%,100%,.5)!important;
+    border-left: 4px solid #02778c;
+}

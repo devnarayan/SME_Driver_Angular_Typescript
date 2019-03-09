@@ -1,0 +1,13 @@
+<md-input-container>
+  <input #mainInput mdInput [placeholder]="placeholder" [mdAutocomplete]="auto" 
+                 [(ngModel)]="searchString" [formControl]="formControlObj"
+                 (blur)="onTextboxBlur()">
+  <button md-button *ngIf="searchString" mdSuffix md-icon-button (click)="onClearText()">
+    <md-icon>close</md-icon>
+  </button>
+  <md-autocomplete #auto="mdAutocomplete">
+    <md-option *ngFor="let item of itemList | stringFilter:getName:searchString" [value]="getName(item)">
+      {{getName(item)}}
+    </md-option>
+  </md-autocomplete>
+</md-input-container>

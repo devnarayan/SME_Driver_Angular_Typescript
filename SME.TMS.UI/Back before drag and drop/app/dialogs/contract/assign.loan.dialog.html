@@ -1,0 +1,136 @@
+<h1 md-dialog-title>{{data.title}} <button md-icon-button class="float-right"><md-icon>print</md-icon></button></h1>
+<div md-dialog-content>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+          <app-autocomplete [itemList]="financeTypeList" 
+          [getName]="financeTypeName" [getValue]="financeTypeValue"
+          [(value)]="financeTypeId" [placeholder]="'Finance Type'"></app-autocomplete>
+      </div>
+      <div class="row">
+          <app-autocomplete [itemList]="paymentMethodList" [formControlObj]="paymentMethodFormControl"
+          [(value)]="paymentMethod" [placeholder]="'Payment Method'"></app-autocomplete>
+      </div>
+      <div class="row">
+          <app-autocomplete [itemList]="typeList" [formControlObj]="typeFormControl"
+          [(value)]="loaner" [placeholder]="'Type'"></app-autocomplete>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input placeholder="Name" mdInput tabindex="1" [formControl]="financeNameFormControl" [(ngModel)]="data.financeAgreementName">
+          <md-error *ngIf="financeNameFormControl.hasError('required')">
+            Finance name is
+            <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input mdInput [mdDatepicker]="pickerstartdate" tabindex="5" placeholder="Start Date" [formControl]="contractStartDateFormControl"
+            name="contractStartDate" [(ngModel)]="data.startDate">
+          <button mdSuffix [mdDatepickerToggle]="pickerstartdate"></button>
+          <md-error *ngIf="contractStartDateFormControl.hasError('required')">
+            Start date is
+            <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        <md-datepicker #pickerstartdate></md-datepicker>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input placeholder="Equipment Cost" mdInput tabindex="4" [formControl]="loanAmountFormControl" [(ngModel)]="data.loanAmount">
+          <md-error *ngIf="loanAmountFormControl.hasError('required')">
+            Equipment Cost is
+            <strong>required</strong>
+          </md-error>
+          <md-error *ngIf="loanAmountFormControl.hasError('pattern')">
+            Please enter a valid amount
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <md-checkbox [(ngModel)]="interestOnly">Is Interest Only</md-checkbox>
+      </div>
+      <div class="row">
+          <app-autocomplete [itemList]="frequencyTypeList" [formControlObj]="frequencyTypeFormControl"
+          [getName]="frequencyTypeName" [getValue]="frequencyTypeValue"
+          [(value)]="frequencyTypeId" [placeholder]="'Frequency Type'"></app-autocomplete>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input placeholder="Down Payment" mdInput tabindex="1" [formControl]="downPaymentFormControl" [(ngModel)]="downPayment">
+          <md-error *ngIf="downPaymentFormControl.hasError('required')">
+            Down Payment is
+            <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input placeholder="Interest Rate" mdInput tabindex="1" [formControl]="interestRateFormControl" [(ngModel)]="interestRate">
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input placeholder="Total Payments" mdInput tabindex="1" [formControl]="totalPaymentFormControl" [(ngModel)]="totalPayments">
+          <md-error *ngIf="financeNameFormControl.hasError('required')">
+            Total Payments is
+            <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input mdInput disabled [mdDatepicker]="pickerenddate" tabindex="6" placeholder="EndDate" [(ngModel)]="data.endDate">
+        </md-input-container>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <md-select placeholder="Truck Number"></md-select>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <input placeholder="VIN" disabled mdInput tabindex="1" [(ngModel)]="vin">
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container>
+          <textarea placeholder="Notes" mdInput mdTextareaAutosize mdAutosizeMinRows="5" mdAutosize tabindex="1" [(ngModel)]="notes"></textarea>
+        </md-input-container>
+      </div>
+      <div class="row">
+        <span class="mat-input-error">{{message}}</span>
+          <button md-raised-button class="mat-primary" (click)="onOkClick()" tabindex="7">Ok</button>
+          <button md-raised-button class="mat-primary" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          <button md-raised-button class="mat-primary" (click)="build()">Build</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row table-container">
+  <table class="table table-reponsive">
+    <thead>
+      <tr>
+        <th>Payment Number</th>
+        <th>Date</th>
+        <th>Payment</th>
+        <th>Interest</th>
+        <th>Principle</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tableData">
+        <td>{{item.paymentNumber}}</td>
+        <td>{{item.paymentDate | date: 'MM/dd/yyyy'}}</td>
+        <td>{{item.paymentAmount | currency:'USD':'symbol'}}</td>
+        <td>{{item.appliedToInterest | currency:'USD':'symbol'}}</td>
+        <td>{{item.appliedToPrinciple | currency:'USD':'symbol'}}</td>
+        <td>{{item.remainingBalance | currency:'USD':'symbol'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

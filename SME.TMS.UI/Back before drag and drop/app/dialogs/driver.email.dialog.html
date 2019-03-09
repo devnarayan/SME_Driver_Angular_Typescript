@@ -1,0 +1,15 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<md-input-container>
+  <input placeholder="Enter email address" mdInput tabindex="1" [(ngModel)]="data.email">
+</md-input-container>
+<br/> Primary &nbsp;
+<md-slide-toggle color="primary" tabindex="2" [(ngModel)]="data.isPrimary" [checked]="data.isPrimary==true?1:0">
+</md-slide-toggle>
+
+<div md-dialog-actions>
+  <button md-button [md-dialog-close]="data" tabindex="3">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

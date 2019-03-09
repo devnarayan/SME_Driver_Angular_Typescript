@@ -1,0 +1,11 @@
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\bin\Debug\netcoreapp2.0\SME.TMS.API.deps.json
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\bin\Debug\netcoreapp2.0\SME.TMS.API.runtimeconfig.json
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\bin\Debug\netcoreapp2.0\SME.TMS.API.runtimeconfig.dev.json
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\bin\Debug\netcoreapp2.0\SME.TMS.API.dll
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\bin\Debug\netcoreapp2.0\SME.TMS.API.pdb
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\obj\Debug\netcoreapp2.0\SME.TMS.API.csprojAssemblyReference.cache
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\obj\Debug\netcoreapp2.0\SME.TMS.API.csproj.CoreCompileInputs.cache
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\obj\Debug\netcoreapp2.0\SME.TMS.API.AssemblyInfoInputs.cache
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\obj\Debug\netcoreapp2.0\SME.TMS.API.AssemblyInfo.cs
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\obj\Debug\netcoreapp2.0\SME.TMS.API.dll
+E:\1. Working Projects\Driver Management (SME)\1. SourceCode\SME.TMS.API\obj\Debug\netcoreapp2.0\SME.TMS.API.pdb

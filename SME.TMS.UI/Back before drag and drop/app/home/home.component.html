@@ -1,0 +1,601 @@
+<div id="body" class="body">
+    <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+        <app-nav [currentUser]="currentUser" [(filter)]="driverFullName" (filterChange)="filterItem()" [logo]="logoData" [Active]="'Drivers'"></app-nav>
+        <div class="ks-container">
+            <div class="row">
+                <div class="col-md-2">
+                    <app-sidebar #sidebar (OnClicked)="selectDriver($event)"></app-sidebar>
+                </div>
+                <div class="col-md-10">
+
+                    <div class="ks-column ks-page">
+                        <div class="ks-header">
+                            <section class="ks-title">
+                                <h3> Driver Management >> {{tabTitle}} >> {{currentDriver.driverFullName}} </h3>
+
+                                <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                                    'text-success':messageType === 'success',
+                                    'text-primary':messageType === 'info',
+                                    'text-danger':messageType === 'error'
+                                  }"> {{saveMessage}} </span>
+                            </section>
+                        </div>
+                        <div class="ks-content">
+                            <div class="ks-body">
+                                <div class="container-fluid">
+                                    <form name="driverfrm">
+                                        <div class="row" style="margin:0px;">
+                                            <div class="col-lg-12">
+
+                                                <a href="#" (click)="selectPreDriver()">
+                                                    <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+                                                </a>
+
+                                                <a href="#" (click)="selectNextDriver()">
+                                                    <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+                                                </a>
+                                                <a href="#/driver" (click)="addNewDriver()" title="Add new driver" style="font-size: 20px;">
+                                                    <span class="ks-icon fa fa-plus"></span> Add
+                                                </a>
+                                                <a href="#">
+                                                    <span class="ks-icon fa fa-print pull-right" (click)="print()" style="font-size: 32px;"></span>
+                                                </a>
+                                                <button class="btn btn-info pull-right btn-icon" md-raised-button (click)="saveDriver()">
+                                                    <span class="ks-icon fa fa-save pull-right" style="font-size: 32px;"></span>
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+                                                <div class="ks-tabs-container ks-tabs-default ks-tabs-with-separator ks-tabs-header-default ks-tabs-primary tabs-bordered">
+                                                    <ul class="nav ks-nav-tabs">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" (click)="selectTab('Dispatch')" href="#" data-toggle="tab" data-target="#tab4">
+                                                                Dispatch
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#" (click)="selectTab('Safety')" data-toggle="tab" data-target="#tab5">
+                                                                Safety
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#" (click)="selectTab('Settlement')" data-toggle="tab" data-target="#tab6">
+                                                                Settlement
+                                                            </a>
+                                                        </li>
+
+
+                                                    </ul>
+
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="tab4" role="tabpanel">
+                                                            <div class="container-fluid">
+                                                                <div class="card">
+                                                                    <div class="card-block">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-6 ks-panels-column-section">
+
+                                                                                <h5 class="card-title">General</h5>
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-sm-6">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="First name" name="driverFirstName" [formControl]="firstNameFormControl" [(ngModel)]="currentDriver.driverFirstName"
+                                                                                                value="{{currentDriver.driverFirstName}}">
+                                                                                            <md-error *ngIf="firstNameFormControl.hasError('required')">
+                                                                                                First Name is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                    <div class="col-sm-6">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="Last Name" name="driverLastName" [formControl]="lastNameFormControl" [(ngModel)]="currentDriver.driverLastName">
+                                                                                            <md-error *ngIf="lastNameFormControl.hasError('required')">
+                                                                                                Last Name is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-sm-9">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="Address" [formControl]="addressFormControl" name="driverStreetAddressLine1" [(ngModel)]="currentDriver.driverStreetAddressLine1">
+                                                                                            <md-error *ngIf="addressFormControl.hasError('required')">
+                                                                                                Address is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-sm-9">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="Address 2" name="driverStreetAddressLine2" [(ngModel)]="currentDriver.driverStreetAddressLine2">
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-sm-3">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="City" [formControl]="cityFormControl" name="driverCity" [(ngModel)]="currentDriver.driverCity">
+                                                                                            <md-error *ngIf="cityFormControl.hasError('required')">
+                                                                                                City is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                    <div class="col-sm-3">
+                                                                                        <!--
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="State" [formControl]="stateFormControl" name="driverStateProvinceName" [(ngModel)]="currentDriver.driverStateProvinceName">
+                                                                                            <md-error *ngIf="stateFormControl.hasError('required')">
+                                                                                                State is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    -->
+                                                                                        <md-select placeholder="StateProvinces" [(ngModel)]="currentDriver.driverStateProvinceId" name="stateProvinceID">
+                                                                                            <md-option *ngFor="let type of driverStateProvinces" [value]="type.stateProvinceId">
+                                                                                                {{type.stateProvinceName}}
+                                                                                            </md-option>
+                                                                                        </md-select>
+                                                                                    </div>
+                                                                                    <div class="col-sm-3">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput #postalCode [formControl]="zipFormControl" placeholder="Postal Code" name="driverZip" [(ngModel)]="currentDriver.driverZip">
+                                                                                            <md-hint align="end"></md-hint>
+                                                                                            <md-error *ngIf="zipFormControl.hasError('required')">
+                                                                                                Postal Code is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                            </div>
+
+                                                                            <div class="col-lg-6 ks-panels-column-section">
+
+                                                                                <h5 class="card-title">Details</h5>
+
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-sm-5">
+                                                                                        <!--<md-input-container class="example-full-width">
+                                                                                                
+                                                                                            <input mdInput placeholder="Ethnicity" [formControl]="ethncityFormControl" name="ethnicityID" [(ngModel)]="currentDriver.ethnicityID">
+                                                                                            <md-error *ngIf="ethncityFormControl.hasError('required')">
+                                                                                                Ethnicity is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>-->
+                                                                                        <app-autocomplete [itemList]="driverEthnicityTypes" [getName]="ethnicityName"
+                                                                                            [getValue]="ethnicityValue" [(value)]="currentDriver.ethnicityTypeId"
+                                                                                            [placeholder]="'Ethnicity'"></app-autocomplete>
+                                                                                        <!-- <md-error *ngIf="ethnicityFormControl.hasError('required')">
+                                                                                                Ethnicity is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>-->
+                                                                                    </div>
+                                                                                    <div class="col-sm-1"></div>
+                                                                                    <div class="col-sm-5">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="picker" placeholder="DOB" [formControl]="dobFormControl" name="dateOfBirth" [(ngModel)]="currentDriver.dateOfBirth">
+                                                                                            <!--  -->
+                                                                                            <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                                                                            <md-error *ngIf="dobFormControl.hasError('required')">
+                                                                                                Date of birth is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #picker></md-datepicker>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <!-- <label for="default-input" class="col-sm-1 form-control-label"> Sex: </label> -->
+                                                                                    <div class="col-sm-5">
+                                                                                        <md-radio-group class="example-radio-group" [(ngModel)]="gender" name="sex">
+                                                                                            <md-radio-button class="example-radio-button" *ngFor="let sex of gendertype" [value]="sex" color="primary">
+                                                                                                {{sex}}&nbsp;&nbsp;
+                                                                                            </md-radio-button>
+                                                                                        </md-radio-group>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1"></div>
+                                                                                    <div class="col-sm-5">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="hirepicker" placeholder="Hire Date" [formControl]="hiredateFormControl" name="hireDate" [(ngModel)]="currentDriver.hireDate">
+                                                                                            <button mdSuffix [mdDatepickerToggle]="hirepicker"></button>
+                                                                                            <md-error *ngIf="hiredateFormControl.hasError('required')">
+                                                                                                Hire date is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #hirepicker></md-datepicker>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="form-group row">
+                                                                                    <div class="col-sm-6">
+                                                                                        <md-slide-toggle color="primary" (change)="activeactiveChange(currentDriver.isActive)" [checked]="currentDriver.isActive==true?1:0">
+                                                                                            Active
+                                                                                        </md-slide-toggle>
+                                                                                    </div>
+                                                                                    <div class="col-sm-5">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="termpicker" placeholder="Term date" name="termDate" [(ngModel)]="currentDriver.termDate">
+                                                                                            <button mdSuffix [mdDatepickerToggle]="termpicker"></button>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #termpicker></md-datepicker>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="default-input" class="col-sm-1 form-control-label"> </label>
+                                                                                    <div class="col-sm-4">
+
+                                                                                    </div>
+                                                                                    <div class="col-sm-1"></div>
+                                                                                    <div class="col-sm-5">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="pickerPeriod" placeholder="Current Pay Period" name="currentPayPeriod" [(ngModel)]="currentDriver.currentPayPeriod">
+                                                                                            <button mdSuffix [mdDatepickerToggle]="pickerPeriod"></button>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #pickerPeriod></md-datepicker>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 ks-panels-column-section">
+                                                                        <div class="card panel panel-default panel-table">
+                                                                            <h5 class="card-header">
+                                                                                Contact
+                                                                                <span class="btn btn-info pull-right" md-raised-button (click)="openAddEmailDialog()">Add</span>
+                                                                                <!-- <button class="btn btn-info pull-right" md-raised-button (click)="openDialog()">Add</button> -->
+                                                                            </h5>
+                                                                            <div class="card-block">
+                                                                                <table class="table text-light stacktable large-only">
+                                                                                    <thead class="thead-default">
+                                                                                        <tr>
+                                                                                            <th> Email </th>
+                                                                                            <th> Primary </th>
+                                                                                            <th> Action </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let email of driverEmails">
+                                                                                            <td> {{email.driverEmailAddress}}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <md-slide-toggle color="primary" (change)="emailPrimaryChange(email)" [checked]="email.isPrimary==true?1:0">
+                                                                                                </md-slide-toggle>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <span class="ks-icon fa fa-edit" (click)="editEmailDialog(email.driverEmailAddressID, email.driverEmailAddress,email.isPrimary)"></span> &nbsp;&nbsp;&nbsp;
+                                                                                                <span class="ks-icon fa fa-close" (click)="deleteEmailDialog(email.driverEmailAddressID, email.driverEmailAddress,email.isPrimary)"></span>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <br>
+                                                                                <span class="btn btn-info pull-right buttonAlign" md-raised-button (click)="addPhoneDialog()">Add</span>
+
+                                                                                <table class="table text-light stacktable large-only">
+                                                                                    <thead class="thead-default">
+                                                                                        <tr>
+                                                                                            <th> Phone </th>
+                                                                                            <th> Phone Type </th>
+                                                                                            <th> Primary </th>
+                                                                                            <th> Action </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let phone of driverPhones">
+                                                                                            <td> {{phone.driverPhoneNumber}} </td>
+                                                                                            <td> {{phone.driverPhoneType}}</td>
+                                                                                            <td>
+                                                                                                <md-slide-toggle color="primary" (change)="phonePrimaryChange(phone)" [checked]="phone.isPrimary==true?1:0">
+                                                                                                </md-slide-toggle>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <span class="ks-icon fa fa-edit" (click)="editPhoneDialog(phone.driverPhoneID, phone.driverPhoneNumber,phone.driverPhoneType, phone.driverPhoneTypeID,phone.isPrimary)"></span> &nbsp;&nbsp;&nbsp;
+                                                                                                <span class="ks-icon fa fa-close" (click)="deletePhoneDialog(phone.driverPhoneID, phone.driverPhoneNumber, phone.driverPhoneType, phone.driverPhoneTypeID,phone.isPrimary)"></span>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6 ks-panels-column-section">
+                                                                        <div class="card panel panel-default panel-table">
+                                                                            <h5 class="card-header">
+                                                                                Contract Assignment History
+                                                                                <div [ngClass]="{'nav-itemActive': Active == 'Contracts', 'nav-item': Active != 'Contracts'}">
+                                                                                    <a class="nav-link" [routerLink]="['/contract']" [queryParams]="{ContractId: '9131'}" role="button">
+                                                                                        <!--<a class="btn btn-info pull-right" href="#/Contract">Change</a>-->
+                                                                                        <span class="btn btn-info pull-right">Change</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </h5>
+
+
+                                                                            <div class="card-block">
+
+                                                                                <table class="table text-light stacktable large-only">
+                                                                                    <thead class="thead-default">
+                                                                                        <tr>
+                                                                                            <th> Active On </th>
+                                                                                            <th> Ended </th>
+                                                                                            <th> Contract </th>
+                                                                                            <th> Desc </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let contract of driverContracts">
+                                                                                            <td> {{contract.driverContractStartDate
+                                                                                                | date: 'MM/dd/yyyy'}} </td>
+                                                                                            <td>{{contract.driverContractEndDate
+                                                                                                | date: 'MM/dd/yyyy'}}
+                                                                                            </td>
+                                                                                            <td> {{contract.driverContractNumber}}
+                                                                                            </td>
+                                                                                            <td>{{contract.driverContractName}}</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="tab-pane" id="tab5" role="tabpanel">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+
+                                                                    <div class="col-lg-12 ks-panels-column-section">
+                                                                        <div class="card">
+                                                                            <div class="card-block">
+                                                                                <h5 class="card-title">General</h5>
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> Driver Evaluation Date : </label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="evalutionpicker" placeholder="" name="recentDriverEvaluationDate" [(ngModel)]="currentDriver.recentDriverEvaluationDate"
+                                                                                                readonly>
+                                                                                            <!-- <button mdSuffix [mdDatepickerToggle]="evalutionpicker"></button> -->
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #evalutionpicker></md-datepicker>
+                                                                                    </div>
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> Hire Date : </label>
+                                                                                    <div class="col-sm-3">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="hire2picker" placeholder="Choose a date" name="hireDate" [(ngModel)]="currentDriver.hireDate">
+                                                                                            <button mdSuffix [mdDatepickerToggle]="hire2picker"></button>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #hire2picker></md-datepicker>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1">
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> Medical Expiration Date: </label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="medicalexppicker" placeholder="" name="recentDriverMedicalExpirationDate" [(ngModel)]="currentDriver.recentDriverMedicalExpirationDate"
+                                                                                                readonly>
+                                                                                            <!-- <button mdSuffix [mdDatepickerToggle]="medicalexppicker"></button> -->
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #medicalexppicker></md-datepicker>
+                                                                                    </div>
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> Term Date: </label>
+                                                                                    <div class="col-sm-3">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="term2ppicker" placeholder="Choose a date" name="termDate" [(ngModel)]="currentDriver.termDate">
+                                                                                            <button mdSuffix [mdDatepickerToggle]="term2ppicker"></button>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #term2ppicker></md-datepicker>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> License Number: </label>
+                                                                                    <div class="col-sm-3">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="License Number" [formControl]="licensenoFormControl" name="driverLicenseNumber" [(ngModel)]="currentDriver.driverLicenseNumber">
+                                                                                            <md-error *ngIf="licensenoFormControl.hasError('required')">
+                                                                                                License Number is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1">
+                                                                                        <a href="{{currentDriver.driverReportURL}}" target="_blank">
+                                                                                            <span class="ks-icon fa fa-file-text" style="font-size: 30px;"></span>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> Insurance Provider: </label>
+                                                                                    <div class="col-sm-3">
+                                                                                        <md-input-container class="example-full-width">
+                                                                                            <input mdInput placeholder="" name="recentDriverInsureanceProviderName" [(ngModel)]="currentDriver.recentDriverInsureanceProviderName"
+                                                                                                readonly>
+                                                                                        </md-input-container>
+                                                                                    </div>
+
+                                                                                    <div class="col-sm-1">
+                                                                                        <a href="{{currentDriver.recentDriverInsurancePolicyURL}}" target="_blank">
+                                                                                            <span class="ks-icon fa fa-file-text" style="font-size: 30px;"></span>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> License Expire Date: </label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <md-input-container>
+                                                                                            <input mdInput [mdDatepicker]="licenseexppicker" [formControl]="licenseExpiryFormControl" placeholder="Choose a date" name="driverLicenseExpirationDate"
+                                                                                                [(ngModel)]="currentDriver.driverLicenseExpirationDate">
+                                                                                            <button mdSuffix [mdDatepickerToggle]="licenseexppicker"></button>
+                                                                                            <md-error *ngIf="licenseExpiryFormControl.hasError('required')">
+                                                                                                License Expire Date is
+                                                                                                <strong>required</strong>
+                                                                                            </md-error>
+                                                                                        </md-input-container>
+                                                                                        <md-datepicker #licenseexppicker></md-datepicker>
+                                                                                    </div>
+                                                                                    <label for="default-input" class="col-sm-2 form-control-label"> Insurance Rate: </label>
+                                                                                    <div class="col-sm-3">
+                                                                                        <p class="currencyLabel"> {{currentDriver.recentDriverInsuranceProviderRate
+                                                                                            | currency:'USD':'symbol'}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1">
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <br>
+
+
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 ks-panels-column-section">
+                                                                        <div class="card panel panel-default panel-table">
+                                                                            <h5 class="card-header">
+                                                                                Insurance History
+
+                                                                                <a class="btn btn-info pull-right" href="#">Change</a>
+                                                                            </h5>
+
+
+                                                                            <div class="card-block">
+
+                                                                                <table class="table text-light stacktable large-only">
+                                                                                    <thead class="thead-default">
+                                                                                        <tr>
+                                                                                            <th> Active On </th>
+                                                                                            <th> End On </th>
+                                                                                            <th> Provider </th>
+                                                                                            <th> Rate </th>
+
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let insu of driverInsurances">
+                                                                                            <td> {{insu.driverInsuranceStartDate
+                                                                                                | date: 'MM/dd/yyyy'}} </td>
+                                                                                            <td> {{insu.driverInsuranceEndDate
+                                                                                                | date: 'MM/dd/yyyy'}} </td>
+                                                                                            <td>{{insu.driverInsureanceProviderName}}</td>
+                                                                                            <td> ${{insu.driverInsuranceProviderRate}}
+                                                                                            </td>
+                                                                                        </tr>
+
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6 ks-panels-column-section">
+                                                                        <div class="card panel panel-default panel-table">
+                                                                            <h5 class="card-header">
+                                                                                Medical Evaluation History
+                                                                                <!--<a class="btn btn-info pull-right" href="#"> Add </a>-->
+                                                                                <span class="btn btn-info pull-right" md-raised-button (click)="openAddMedicalHistoryDialog()">Add</span>
+                                                                            </h5>
+
+
+                                                                            <div class="card-block">
+
+                                                                                <table class="table text-light stacktable large-only">
+                                                                                    <thead class="thead-default">
+                                                                                        <tr>
+                                                                                            <th> Active On </th>
+                                                                                            <th> Expire On </th>
+                                                                                            <th> Provider </th>
+                                                                                            <th> Fee </th>
+                                                                                            <th> Action </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let medi of driverMedicalEvalutions">
+                                                                                            <td> {{medi.driverMedicalEffectiveDate
+                                                                                                | date: 'MM/dd/yyyy'}} </td>
+                                                                                            <td> {{medi.driverMedicalExpirationDate
+                                                                                                | date: 'MM/dd/yyyy'}} </td>
+                                                                                            <td>{{medi.driverMedicalProviderName}}</td>
+                                                                                            <td> ${{medi.driverMedicalProviderRate}}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <span class="ks-icon fa fa-edit" (click)="editMedicalHistoryDialog(medi.driverMedicalEvaluationID, medi.driverMedicalProviderID, medi.driverMedicalEffectiveDate,medi.driverMedicalExpirationDate, medi.driverMedicalProviderRate)"></span> &nbsp;&nbsp;&nbsp;
+                                                                                                <span class="ks-icon fa fa-close" (click)="deleteMedicalHistoryDialog(medi.driverMedicalEvaluationID, medi.driverMedicalProviderID, medi.driverMedicalEffectiveDate,medi.driverMedicalExpirationDate, medi.driverMedicalProviderRate)"></span>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane" id="tab6" role="tabpanel">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

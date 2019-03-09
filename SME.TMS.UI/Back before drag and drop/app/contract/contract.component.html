@@ -1,0 +1,353 @@
+<div id="body" class="body">
+  <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+    <app-nav [currentUser]="currentUser" [(filter)]="contractFullName" (filterChange)="filterItem()" [logo]="logoData" [Active]="'Contracts'"></app-nav>
+
+    <div class="ks-container">
+      <div class="row">
+        <div class="col-md-2">
+          <app-sidebar #sidebar (OnClicked)="selectContract($event)"></app-sidebar>
+
+        </div>
+        <div class="col-md-10">
+
+          <div class="ks-column ks-page">
+            <div class="ks-header">
+              <section class="ks-title">
+                <h3> Contract Maintanance >> {{currentContract.contractName}} </h3>
+
+                <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                    'text-success':messageType === 'success',
+                    'text-primary':messageType === 'info',
+                    'text-danger':messageType === 'error'
+                  }"> {{saveMessage}} </span>
+              </section>
+            </div>
+            <div class="ks-content">
+              <div class="ks-body">
+                <div class="container-fluid">
+                  <form name="contractFrm">
+                    <div class="row" style="margin:0px;">
+                      <div class="col-lg-12">
+                        <a href="#/contract" (click)="selectPreContract()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/contract" (click)="selectNextContract()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+                        </a>
+                        <a href="#/contract" (click)="addNewContract()" title="Add new contract" style="font-size: 20px;">
+                          <span class="ks-icon fa fa-plus"></span> Add
+                        </a>
+                        <a href="#/contract">
+                          <span class="ks-icon fa fa-print pull-right" (click)="print()" style="font-size: 32px;"></span>
+                        </a>
+                        <button class="btn btn-info pull-right btn-icon" md-raised-button (click)="saveContract()">
+                          <span class="ks-icon fa fa-save pull-right" style="font-size: 32px;"></span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                        <div class="ks-tabs-container ks-tabs-default ks-tabs-with-separator ks-tabs-header-default ks-tabs-primary tabs-bordered">
+                          <ul class="nav ks-nav-tabs">
+                            <li class="nav-item">
+                              <a class="nav-link active" href="#/contract" data-toggle="tab" data-target="#tab4">
+                                Dispatch
+                              </a>
+                            </li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="tab4" role="tabpanel">
+                              <div class="container-fluid">
+                                <div class="card">
+                                  <div class="card-block">
+                                    <div class="row">
+                                      <div class="col-lg-3 ks-panels-column-section">
+
+                                        <h5 class="card-title">General</h5>
+                                        <div class="form-group">
+
+                                          <md-input-container class="example-full-width">
+                                            <input mdInput placeholder="Contract No." name="contractNumber" [formControl]="contractNumberFormControl" [(ngModel)]="currentContract.contractNumber">
+                                            <md-error *ngIf="contractNumberFormControl.hasError('required')">
+                                              Contract No is
+                                              <strong>required</strong>
+                                            </md-error>
+                                          </md-input-container>
+                                        </div>
+                                        <div class="form-group">
+                                          <md-input-container class="example-full-width">
+                                            <input mdInput placeholder="Description" name="contractName" [formControl]="contractNameFormControl" [(ngModel)]="currentContract.contractName">
+                                            <md-error *ngIf="contractNameFormControl.hasError('required')">
+                                              Discription is
+                                              <strong>required</strong>
+                                            </md-error>
+                                          </md-input-container>
+                                        </div>
+                                        <div class="form-group">
+                                          <md-input-container class="example-full-width">
+                                            <input mdInput placeholder="Responsible Party" name="responsibleParty" [formControl]="responsiblePartyFormControl" [(ngModel)]="currentContract.responsibleParty">
+                                            <md-error *ngIf="responsiblePartyFormControl.hasError('required')">
+                                              Discription is
+                                              <strong>required</strong>
+                                            </md-error>
+                                          </md-input-container>
+                                        </div>
+                                        <div class="form-group">
+                                          <md-input-container>
+                                            <input mdInput [mdDatepicker]="pickerstartdate" placeholder="Start Date" [formControl]="contractStartDateFormControl" name="contractStartDate"
+                                              [(ngModel)]="currentContract.contractStartDate">
+                                            <button mdSuffix [mdDatepickerToggle]="pickerstartdate"></button>
+                                            <md-error *ngIf="contractStartDateFormControl.hasError('required')">
+                                              Start date is
+                                              <strong>required</strong>
+                                            </md-error>
+                                          </md-input-container>
+                                          <md-datepicker #pickerstartdate></md-datepicker>
+                                        </div>
+                                        <div class="form-group">
+                                          <md-input-container>
+                                            <input mdInput [mdDatepicker]="pickerenddate" placeholder="EndDate" [formControl]="contractEndDateFormControl" name="contractEndDate"
+                                              [(ngModel)]="currentContract.contractEndDate">
+                                            <button mdSuffix [mdDatepickerToggle]="pickerenddate"></button>
+                                            <md-error *ngIf="contractEndDateFormControl.hasError('required')">
+                                              End date is
+                                              <strong>required</strong>
+                                            </md-error>
+                                          </md-input-container>
+                                          <md-datepicker #pickerenddate></md-datepicker>
+
+                                        </div>
+
+                                      </div>
+
+                                      <div class="col-lg-6 ks-panels-column-section">
+
+                                        <h5 class="card-title">Details</h5>
+                                        <div class="row">
+
+                                          <div class="col-sm-6">
+                                            <div class="form-group">
+                                              <md-input-container class="example-full-width">
+                                                <input mdInput placeholder="Initial Deposit" name="initialDeposit" [formControl]="initialDepositFormControl" [(ngModel)]="currentContract.initialDeposit">
+                                                <md-error *ngIf="initialDepositFormControl.hasError('required')">
+                                                  Initial Deposit is
+                                                  <strong>required</strong>
+                                                </md-error>
+                                              </md-input-container>
+                                            </div>
+                                            <md-input-container class="example-full-width form-group">
+                                              <input mdInput placeholder="Payroll Key" name="payrollId" [formControl]="payrollIdFormControl" [(ngModel)]="currentContract.payrollId">
+                                              <md-error *ngIf="payrollIdFormControl.hasError('required')">
+                                                Payroll Key is
+                                                <strong>required</strong>
+                                              </md-error>
+                                            </md-input-container>
+                                            <md-input-container class="example-full-width form-group">
+                                              <input mdInput placeholder="SSN" name="tin" [formControl]="tinFormControl" [(ngModel)]="currentContract.tin">
+                                              <md-error *ngIf="tinFormControl.hasError('required')">
+                                                SSN is
+                                                <strong>required</strong>
+                                              </md-error>
+                                            </md-input-container>
+                                            <md-input-container class="example-full-width form-group">
+                                              <input mdInput placeholder="PCT Ret" name="percentRetained" [formControl]="percentRetainedFormControl" [(ngModel)]="currentContract.percentRetained">
+                                              <md-error *ngIf="percentRetainedFormControl.hasError('required')">
+                                                PCT Ret is
+                                                <strong>required</strong>
+                                              </md-error>
+                                            </md-input-container>
+                                          </div>
+                                          <div class="col-sm-6">
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                              <md-slide-toggle color="primary" [checked]="currentContract.isDirectDeposit==true?1:0">
+                                                Direct Deposit
+                                              </md-slide-toggle>
+                                            </div>
+                                            <div class="form-group">
+                                              <md-slide-toggle color="primary" [checked]="currentContract.is1099Vendor==true?1:0">
+                                                1099 Vendor
+                                              </md-slide-toggle>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                      <div class="col-lg-3 ks-panels-column-section">
+
+                                        <h5 class="card-title">Summary</h5>
+                                        <div class="form-group">
+
+                                          <md-input-container class="example-full-width">
+                                            <input mdInput placeholder="Total Loans" name="totalLoans" [formControl]="totalLoansFormControl" [(ngModel)]="currentContract.totalLoans">
+                                            <md-error *ngIf="totalLoansFormControl.hasError('required')">
+                                              Total Loans is
+                                              <strong>required</strong>
+                                            </md-error>
+                                          </md-input-container>
+                                        </div>
+                                        <md-input-container class="example-full-width form-group">
+                                          <input mdInput placeholder="Total to settle" name="totalToSettle" [formControl]="totalToSettleFormControl" [(ngModel)]="currentContract.totalToSettle">
+                                          <md-error *ngIf="totalToSettleFormControl.hasError('required')">
+                                            Total to settle is
+                                            <strong>required</strong>
+                                          </md-error>
+                                        </md-input-container>
+                                        <md-input-container class="example-full-width form-group">
+                                          <!-- <input mdInput placeholder="Current Pay Period" name="currentPayPeriod" [formControl]="currentPayPeriodFormControl" [(ngModel)]="currentContract.currentPayPeriod"> -->
+
+                                          <input mdInput [mdDatepicker]="pickerpayperioddate" placeholder="Current Pay Period" [formControl]="currentPayPeriodFormControl"
+                                            name="currentPayPeriod" [(ngModel)]="currentContract.currentPayPeriod">
+                                          <button mdSuffix [mdDatepickerToggle]="pickerpayperioddate"></button>
+                                          <md-error *ngIf="currentPayPeriodFormControl.hasError('required')">
+                                            Current Pay Period is
+                                            <strong>required</strong>
+                                          </md-error>
+                                        </md-input-container>
+                                        <md-datepicker #pickerpayperioddate></md-datepicker>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="card">
+                                  <div class="card-block">
+                                    <div class="row">
+
+                                      <div class="col-lg-6 ks-panels-column-section">
+                                        <div class="card panel panel-default panel-table">
+                                          <h5 class="card-header">
+                                            Truck Assigned
+                                            <span class="btn btn-info pull-right buttonAlign" md-raised-button (click)="addAssignTruckDialog()">Add</span>
+                                          </h5>
+
+
+                                          <div class="card-block">
+
+                                            <table class="table text-light stacktable large-only">
+                                              <thead class="thead-default">
+                                                <tr>
+                                                  <th> Active On </th>
+                                                  <th> Ended </th>
+                                                  <th> Truck </th>
+                                                  <th> Action </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr *ngFor="let truck of assignedTrucks">
+                                                  <td> {{truck.startDate | date: 'MM/dd/yyyy'}} </td>
+                                                  <td> {{truck.endDate | date: 'MM/dd/yyyy'}} </td>
+                                                  <td> {{truck.truckNumber}} </td>
+                                                  <td>
+                                                    <span class="ks-icon fa fa-edit" (click)="editAssignTruckDialog(truck)"></span> &nbsp;&nbsp;&nbsp;
+                                                    <span class="ks-icon fa fa-close" (click)="deleteAssignTruckDialog(truck)"></span>
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 ks-panels-column-section">
+                                        <div class="card panel panel-default panel-table">
+                                          <h5 class="card-header">
+                                            Drivers Assigned
+                                            <span class="btn btn-info pull-right buttonAlign" md-raised-button (click)="addAssignDriverDialog()">Add</span>
+                                          </h5>
+                                          <div class="card-block">
+
+                                            <table class="table text-light stacktable large-only">
+                                              <thead class="thead-default">
+                                                <tr>
+                                                  <th> Active On </th>
+                                                  <th> Ended </th>
+                                                  <th> Driver Name </th>
+                                                  <th> Action </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr *ngFor="let driver of assignedDrivers">
+                                                  <td> {{driver.startDate | date: 'MM/dd/yyyy'}} </td>
+                                                  <td> {{driver.endDate | date: 'MM/dd/yyyy'}} </td>
+                                                  <td> {{driver.driverFullName}} </td>
+                                                  <td>
+                                                    <span class="ks-icon fa fa-edit" (click)="editAssignDriverDialog(driver)"></span> &nbsp;&nbsp;&nbsp;
+                                                    <span class="ks-icon fa fa-close" (click)="deleteAssignDriverDialog(driver)"></span>
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-12 ks-panels-column-section">
+                                        <div class="card panel panel-default panel-table">
+                                          <h5 class="card-header">
+                                            Loans/Lease Assigned
+                                            <span class="btn btn-info pull-right buttonAlign" md-raised-button (click)="addAssignLoanDialog()">Add</span>
+                                          </h5>
+                                          <div class="card-block">
+
+                                            <table class="table text-light stacktable large-only">
+                                              <thead class="thead-default">
+                                                <tr>
+                                                  <th>Name</th>
+                                                  <th>Type</th>
+                                                  <th>Payment Amount</th>
+                                                  <th>Loan Amount</th>
+                                                  <th>Remaining Balance</th>
+                                                  <th> Active On </th>
+                                                  <th> Ended </th>
+                                                  <th> Action </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr *ngFor="let finance of assignedFinanceAgreements">
+                                                  <td>{{finance.financeAgreementName}}</td>
+                                                  <td>{{finance.financeTypeName}}</td>
+                                                  <td>{{finance.paymentAmount | currency:'USD':'symbol'}}</td>
+                                                  <td>{{finance.loanAmount | currency:'USD':'symbol'}}</td>
+                                                  <td>{{finance.remainingBalance | currency:'USD':'symbol'}}</td>
+                                                  <td> {{finance.startDate | date: 'MM/dd/yyyy'}} </td>
+                                                  <td> {{finance.endDate | date: 'MM/dd/yyyy'}} </td>
+                                                  <td>
+                                                    <span class="ks-icon fa fa-edit" (click)="editAssignLoanDialog(finance)"></span> &nbsp;&nbsp;&nbsp;
+                                                    <span class="ks-icon fa fa-close" (click)="deleteAssignLoanDialog(finance)"></span>
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

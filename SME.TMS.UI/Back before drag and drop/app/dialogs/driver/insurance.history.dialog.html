@@ -1,0 +1,46 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<div class="form-group">
+  <md-select placeholder="Provider" style="width:80%; margin-top:7px;" [(ngModel)]=" data.driverInsuranceProviderID" tabindex="1" name="phoneType">
+    <md-option *ngFor="let type of insuranceProviders" [value]="type.insuranceProviderId">
+      {{type.insuranceProviderName}}
+    </md-option>
+  </md-select>
+</div>
+<div class="form-group">
+  <md-input-container>
+    <input placeholder="Rate" placeholder="Rate" mdInput tabindex="2" [(ngModel)]="data.driverInsuranceProviderRate">
+  </md-input-container>
+</div>
+<div class="form-group">
+  <md-input-container>
+    <!-- [formControl]="contractStartDateFormControl" name="contractStartDate" -->
+    <input placeholder="Active On" mdInput [mdDatepicker]="pickerstartdate" tabindex="3" placeholder="Start Date" [(ngModel)]="data.driverInsuranceStartDate">
+    <button mdSuffix [mdDatepickerToggle]="pickerstartdate"></button>
+    <!-- <md-error *ngIf="contractStartDateFormControl.hasError('required')">
+        Start date is
+        <strong>required</strong>
+      </md-error> -->
+  </md-input-container>
+  <md-datepicker #pickerstartdate></md-datepicker>
+</div>
+<div class="form-group">
+  <md-input-container>
+    <!-- [formControl]="contractEndDateFormControl" name="contractEndDate" -->
+    <input placeholder="End On" mdInput [mdDatepicker]="pickerenddate" tabindex="4" placeholder="EndDate" [(ngModel)]="data.driverInsuranceEndDate">
+    <button mdSuffix [mdDatepickerToggle]="pickerenddate"></button>
+    <!-- <md-error *ngIf="contractEndDateFormControl.hasError('required')">
+        End date is
+        <strong>required</strong>
+      </md-error> -->
+  </md-input-container>
+  <md-datepicker #pickerenddate></md-datepicker>
+
+</div>
+
+<div md-dialog-actions>
+  <button md-button [md-dialog-close]="data" tabindex="5">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

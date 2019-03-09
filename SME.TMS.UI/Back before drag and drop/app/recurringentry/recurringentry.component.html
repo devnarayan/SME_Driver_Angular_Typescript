@@ -1,0 +1,291 @@
+<div class="ks-column ks-page">
+  <div class="ks-header">
+    <section class="ks-title">
+      <h3> Recurring Entry >> {{currentContract.contractName}} </h3>
+
+      <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                                      'text-success':messageType === 'success',
+                                      'text-primary':messageType === 'info',
+                                      'text-danger':messageType === 'error'
+                                    }"> {{saveMessage}} </span>
+    </section>
+  </div>
+  <div class="ks-content">
+    <div class="ks-body">
+      <div class="container-fluid">
+        <form name="driverfrm">
+          <div class="row" style="margin:0px;">
+            <div class="col-lg-12">
+
+              <a [routerLink]=""  (click)="selectPreContract()">
+                <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+              </a>
+
+              <a [routerLink]=""  (click)="selectNextContract()">
+                <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+              </a>
+              <a [routerLink]=""  (click)="addNewContract()" title="Add new contract" style="font-size: 20px;">
+                <span class="ks-icon fa fa-plus"></span> Add
+              </a>
+              <span class="pull-right">
+                Total Due: <input mdInput placeholder="Total Due:" [formControl]="totalDueFormControl" name="totalDue" [(ngModel)]="this.amount"> &nbsp;&nbsp;&nbsp; SME Due: <input mdInput placeholder="SME Due:" [formControl]="smeDueFormControl" name="smelDue" [(ngModel)]="this.amount">
+              </span>
+
+              <a [routerLink]="" class="pull-right">
+                <span class="ks-icon fa fa-print" style="font-size: 32px;"></span> Print Schedule
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-lg-12">
+              <div class="ks-tabs-container ks-tabs-default ks-tabs-with-separator ks-tabs-header-default ks-tabs-primary tabs-bordered">
+                <br>
+                <div class="container-fluid">
+                  <div class="card">
+                    <div class="card-block">
+                      <div class="row">
+                        <div class="col-lg-6 ks-panels-column-section">
+
+                          <div class="form-group row">
+                            <div class="col-sm-9">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="License number" [formControl]="licenseNumberFormControl" name="licenseNumber" [(ngModel)]="currentDriver.driverStreetAddressLine1">
+                                <md-error *ngIf="licenseNumberFormControl.hasError('required')">
+                                  License number is
+                                  <strong>required</strong>
+                                </md-error>
+                              </md-input-container>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <md-input-container>
+                                <input mdInput [mdDatepicker]="hirepicker" placeholder="Hire Date" [formControl]="hiredateFormControl" name="hireDate" [(ngModel)]="currentDriver.hireDate">
+                                <button mdSuffix [mdDatepickerToggle]="hirepicker"></button>
+                                <md-error *ngIf="hiredateFormControl.hasError('required')">
+                                  Hire date is
+                                  <strong>required</strong>
+                                </md-error>
+                              </md-input-container>
+                              <md-datepicker #hirepicker></md-datepicker>
+                            </div>
+                            <div class="col-sm-6">
+                              <md-input-container>
+                                <input mdInput [mdDatepicker]="termpicker" [formControl]="termdateFormControl" placeholder="Term date" name="termDate" [(ngModel)]="currentDriver.termDate">
+                                <button mdSuffix [mdDatepickerToggle]="termpicker"></button>
+                              </md-input-container>
+                              <md-datepicker #termpicker></md-datepicker>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="Name" name="Name" [formControl]="nameFormControl" [(ngModel)]="currentJournalEntry.name"
+                                  value="{{currentJournalEntry.name}}">
+                                <md-error *ngIf="nameFormControl.hasError('required')">
+                                  Name is
+                                  <strong>required</strong>
+                                </md-error>
+                              </md-input-container>
+                            </div>
+                            <div class="col-sm-6">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="Alias" name="alias" [formControl]="aliasFormControl" [(ngModel)]="currentJournalEntry.description">
+                                <md-error *ngIf="aliasFormControl.hasError('required')">
+                                  Alias is
+                                  <strong>required</strong>
+                                </md-error>
+                              </md-input-container>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="Frequency" name="frequency" [formControl]="nameFormControl" [(ngModel)]="currentJournalEntry.frequencyName"
+                                  value="{{this.frequencyName}}">
+                              </md-input-container>
+                            </div>
+                            <div class="col-sm-6">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="Amount" name="amount" [formControl]="nameFormControl" [(ngModel)]="currentJournalEntry.amount"
+                                  value="{{this.amount}}">
+                              </md-input-container>
+                            </div>
+
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-6">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="InterestRate" name="interestrate" [formControl]="nameFormControl" [(ngModel)]="currentJournalEntry.interestRate"
+                                  value="{{currentJournalEntry.interestRate}}">
+                              </md-input-container>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                              <md-input-container>
+                                <input mdInput [mdDatepicker]="taxdatepicker" placeholder="Loan Date" name="taxDate" [(ngModel)]="currentJournalEntry.loanDate">
+                                <button mdSuffix [mdDatepickerToggle]="taxdatepicker"></button>
+                              </md-input-container>
+                              <md-datepicker #taxdatepicker></md-datepicker>
+                            </div>
+                          
+                          </div>
+
+                          <div class="form-group row">
+<!--
+                            <div class="col-sm-4">
+                              <md-input-container>
+                                <input mdInput [mdDatepicker]="cycledatepicker" placeholder="Cycle Due" name="cycleduedate" [(ngModel)]="currentJournalEntry.cycleDue">
+                                <button mdSuffix [mdDatepickerToggle]="cycledatepicker"></button>
+                              </md-input-container>
+                              <md-datepicker #cycledatepicker></md-datepicker>
+                            </div>
+                          -->
+                            <div class="col-sm-5">
+                              <md-slide-toggle color="primary" (change)="activeactiveChange(currentDriver.isActive)" [checked]="currentDriver.isActive==true?1:0">
+                                Defer expense equally across
+                              </md-slide-toggle>
+                            </div>
+                            <div class="col-md-3">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="settlements" name="settlements">
+                              </md-input-container>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-lg-6 ks-panels-column-section">
+
+                          <div class="form-group row">
+                            <div class="col-sm-9">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="Driver GL Amount" [formControl]="driverGLFormControl" name="driverGL" [(ngModel)]="currentDriver.driverStreetAddressLine1">
+                                <md-error *ngIf="driverGLFormControl.hasError('required')">
+                                  Driver GL Amount is
+                                  <strong>required</strong>
+                                </md-error>
+                              </md-input-container>
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="btn btn-info" md-raised-button>Set</span>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-9">
+                              <md-input-container class="example-full-width">
+                                <input mdInput placeholder="SME GL Amount" [formControl]="address2FormControl" name="driverStreetAddressLine2" [(ngModel)]="currentJournalEntry.smeglAccount">
+                              </md-input-container>
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="btn btn-info" md-raised-button>Set</span>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-sm-11">
+                              <md-input-container class="example-full-width">
+                                <textarea mdInput placeholder="Description"></textarea>
+                              </md-input-container>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div class="row">
+                    <div class="col-lg-6 ks-panels-column-section">
+                      <div class="card panel panel-default panel-table">
+                        <h5 class="card-header">
+                          Documents
+                          <!-- <base64-upload [userId]="player.UserId" [imageUrl]="player.PicUrl"></base64-upload> -->
+             
+                          <span class="btn btn-info pull-right" md-raised-button (click)="openAddDocDialog()">Add Supporting Documents</span>
+                        </h5>
+                        <div class="card-block">
+                          <table class="table text-light stacktable large-only">
+                            <thead class="thead-default">
+                              <tr>
+                                <th> Doc Name </th>
+                                <th> Action </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr  *ngFor="let file of journalImportList">
+                                <td>
+                                  <a [routerLink]=""  (click)="downloadDoc(file.journalImportId)"> 
+                                    {{file.docTitle}}</a>
+                                </td>
+                                <td>
+                                    <span class="ks-icon fa fa-close" (click)="deleteImportDialog(file.journalImportId)"></span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <br>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 ks-panels-column-section">
+                      <div class="card panel panel-default panel-table">
+
+                        <div class="card-block">
+                          <br>
+                          <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-4">
+                              <md-input-container>
+                                <input mdInput [mdDatepicker]="picker" placeholder="Approval Expenses" name="approvalExpenses" [(ngModel)]="currentDriver.dateOfBirth">
+                                <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                              </md-input-container>
+                              <md-datepicker #picker></md-datepicker>
+                            </div>
+                            <div class="col-md-2">
+                              <a class="btn btn-info" href="#recurringentry">Reject</a>
+                            </div>
+                          </div>
+                          <table class="table text-light stacktable large-only">
+                            <thead class="thead-default">
+                              <tr>
+                                <th> Settled </th>
+                                <th> Desc </th>
+                                <th> Payment No </th>
+                                <th> Amount </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+
+                                <td> 02/03/2017</td>
+                                <td>Payment</td>
+                                <td> 2332</td>
+                                <td>$23.300</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

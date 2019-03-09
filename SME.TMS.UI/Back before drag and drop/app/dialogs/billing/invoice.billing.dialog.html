@@ -1,0 +1,147 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Tracking Id" mdInput tabindex="1"  [formControl]="trackingIdFormControl"
+         [(ngModel)]="invoiceModel.trackingIdNumber">
+        <md-error *ngIf="trackingIdFormControl.hasError('required')">
+          Tracking Id is
+          <strong>required</strong>
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Load Number" mdInput tabindex="2"  [formControl]="loanNumberFormControl"
+         [(ngModel)]="invoiceModel.dispatchLoadNumber">
+        <md-error *ngIf="loanNumberFormControl.hasError('required')">
+          Load number Id is
+          <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="loanNumberFormControl.hasError('pattern')">
+          Please enter a valid number
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Driver Rate" mdInput tabindex="3" [formControl]="driverRateFormControl" 
+        [(ngModel)]="invoiceModel.driverRate">
+        <md-error *ngIf="driverRateFormControl.hasError('required')">
+          Driver Rate is
+          <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="driverRateFormControl.hasError('pattern')">
+          Please enter a valid rate
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Driver FSC" mdInput tabindex="3" [formControl]="driverFSCFormControl" 
+        [(ngModel)]="invoiceModel.driverFuelSurcharge">
+        <md-error *ngIf="driverFSCFormControl.hasError('required')">
+          Driver FSC is
+          <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="driverFSCFormControl.hasError('pattern')">
+          Please enter a valid FSC
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Manufacturer Rate" mdInput tabindex="4" [formControl]="manuRateFormControl" 
+        [(ngModel)]="invoiceModel.manufacturerRate">
+        <md-error *ngIf="manuRateFormControl.hasError('required')">
+          Manufacturer Rate is
+          <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="manuRateFormControl.hasError('pattern')">
+          Please enter a valid rate
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Manufacturer FSC" mdInput tabindex="4" [formControl]="manuFSCFormControl" 
+        [(ngModel)]="invoiceModel.manufacturerFuelSurcharge">
+        <md-error *ngIf="manuFSCFormControl.hasError('required')">
+          Manufacturer FSC is
+          <strong>required</strong>
+        </md-error>
+        <md-error *ngIf="manuFSCFormControl.hasError('pattern')">
+          Please enter a valid FSC
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+  <div class="col-md-6">
+    
+<div class="form-group">
+  <md-input-container>
+    <input placeholder="Terminal" mdInput tabindex="5"  [formControl]="terminalFormControl"
+     [(ngModel)]="invoiceModel.terminal">
+    <md-error *ngIf="terminalFormControl.hasError('required')">
+      Tracking Id is
+      <strong>required</strong>
+    </md-error>
+  </md-input-container>
+</div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <md-input-container>
+        <input mdInput [mdDatepicker]="pickerstartdate" tabindex="6" placeholder="Delivery Date"
+        [formControl]="deliveryDateFormControl" 
+         [(ngModel)]="invoiceModel.deliveryDate">
+        <button mdSuffix [mdDatepickerToggle]="pickerstartdate"></button>
+        <md-error *ngIf="deliveryDateFormControl.hasError('required')">
+          Delivery date is
+          <strong>required</strong>
+        </md-error>
+      </md-input-container>
+      <md-datepicker #pickerstartdate></md-datepicker>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <md-input-container>
+        <input placeholder="Truck Number" mdInput tabindex="7"  [formControl]="trucknumberFormControl"
+         [(ngModel)]="invoiceModel.truckNumber">
+        <md-error *ngIf="trucknumberFormControl.hasError('required')">
+          Truck Number is
+          <strong>required</strong>
+        </md-error>
+      </md-input-container>
+    </div>
+  </div>
+</div>
+
+
+
+ 
+<span class="mat-input-error">{{message}}</span>
+<div md-dialog-actions>
+    <!-- [md-dialog-close]="data" -->
+  <button md-button (click)="onOkClick()" tabindex="8">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

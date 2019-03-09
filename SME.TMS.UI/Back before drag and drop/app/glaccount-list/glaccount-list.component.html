@@ -1,0 +1,13 @@
+<md-toolbar>
+  <md-toolbar-row *ngFor="let item of GlaccountList">
+    <button md-raised-button class="max-width" [ngClass]="{selected: item == SelectedAccount}" (click)="OnClick(item)">{{item}}</button>
+  </md-toolbar-row>
+</md-toolbar>
+
+<button md-raised-button class="md-primary md-raised edgePadding" (click)="closeModal()">Cancel</button>
+<button md-raised-button class="md-primary md-raised edgePadding" (click)="confirmModal()" [disabled]="!SelectedAccount">Ok</button>
+
+<md-input-container class="search-area">
+  <input mdInput type="test" placeholder="Search"/>
+  <md-icon mdSuffix>search</md-icon>
+</md-input-container>

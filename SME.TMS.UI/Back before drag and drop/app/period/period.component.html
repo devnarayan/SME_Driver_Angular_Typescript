@@ -1,0 +1,84 @@
+<div class="total-width">
+  <div class="row">
+    <h3>Period Maintenance</h3>
+    <title>Selected Period</title>
+  </div>
+  <div class="card">
+    <div class="card-block">
+      <div class="row form-group">
+        <div class="col-md-5">
+          <md-input-container class="example-full-width">
+            <input mdInput [mdDatepicker]="startPicker" placeholder="Start" name="StartDate" [formControl]="startDateFormControl" [(ngModel)]="startDate">
+            <button mdSuffix [mdDatepickerToggle]="startPicker"></button>
+            <md-error *ngIf="startDateFormControl.hasError('required')">
+              <strong>Required</strong>
+            </md-error>
+          </md-input-container>
+          <md-datepicker #startPicker></md-datepicker>
+        </div>
+        <div class="col-md-5">
+          <md-input-container class="example-full-width">
+            <input mdInput [mdDatepicker]="endPicker" placeholder="End" name="EndDate" [formControl]="endDateFormControl" [(ngModel)]="endDate">
+            <button mdSuffix [mdDatepickerToggle]="endPicker"></button>
+            <md-error *ngIf="endDateFormControl.hasError('required')">
+              <strong>Required</strong>
+            </md-error>
+          </md-input-container>
+          <md-datepicker #endPicker></md-datepicker>
+        </div>
+        <div class="col-md-2">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-5">
+          <md-select mdInput placeholder="Frequency" name="Frequency" [formControl]="frequencyFormControl" [(ngModel)]="frequencyTypeId">
+            <md-option *ngFor="let item of frequencyList" [value]="item.frequencyTypeId">{{item.frequencyName}}</md-option>
+          </md-select>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-info pull-right build-height" (click)="build()">Build</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="ks-panels-column-section max-width">
+      <div class="card panel panel-default panel-table max-width">
+        <h5 class="card-header">
+          Periods
+          <span class="filler"></span>
+          <md-select placeholder="Filter" [(ngModel)]="currentFilter" (change)="changeFilter()">
+            <md-option *ngFor="let item of timeFilterList" [value]="item[1]">{{item[0]}}</md-option>
+          </md-select>
+        </h5>
+        <div class="card-block">
+          <table class="table text-light stacktable large-only max-width">
+            <thead class="thead-default">
+              <tr>
+                <th>
+                  Start
+                </th>
+                <th>
+                  End
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of periodList | dateFilter:filterLamda:filterDate:false">
+                <td>{{item.startDate | date: 'MM/dd/yyyy'}}</td>
+                <td>{{item.endDate | date: 'MM/dd/yyyy'}}</td>
+                <td>
+                  <span class="ks-icon fa fa-close" (click)="deletePeriod(item)"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

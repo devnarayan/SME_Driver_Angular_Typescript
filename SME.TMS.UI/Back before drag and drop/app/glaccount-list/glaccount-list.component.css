@@ -1,0 +1,21 @@
+.selected {
+    background-color: #02778c;
+}
+
+.max-width{
+    width: 100%;
+}
+
+.mat-toolbar-row {
+    height: 40px;
+}
+
+.mat-toolbar {
+    max-height: 350px;
+    overflow-x: scroll;
+    margin-bottom: 10px;
+}
+
+.search-area {
+    float:right;
+}

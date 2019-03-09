@@ -1,0 +1,16 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="docfile">Select Document</label>
+    <input type="file" id="docfile" (change)="onFileChange($event)" #fileInput>
+  </div>
+  <div md-dialog-actions>
+    <button type="submit" md-button [disabled]="form.invalid || loading">Submit
+      <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+    </button>
+    <button type="button" md-button (click)="clearFile()">Cancel</button>
+  </div>
+</form>

@@ -1,0 +1,26 @@
+.half-height {
+    height: 50%;
+}
+
+.fill-screen {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+div {
+    height:100%;
+    width:100%;
+}
+
+.border-split-bottom{
+    border-bottom-style: solid;
+    border-bottom-color: blue;
+}
+
+.border-split-top {
+    border-top-style: solid;
+    border-top-color: blue;
+}

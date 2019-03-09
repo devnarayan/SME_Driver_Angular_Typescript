@@ -1,0 +1,144 @@
+<div id="body" class="body">
+  <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+    <app-nav [currentUser]="currentUser" [(filter)]="vendorSearch" (filterChange)="filterItem()" [logo]="logoData" [Active]="'Cash'"></app-nav>
+    <div class="ks-container">
+      <div class="row">
+        <div class="col-md-2">
+          <app-sidebar #sidebar (OnClicked)="selectVendor($event)"></app-sidebar>
+        </div>
+        <div class="col-md-10">
+          <form name="contractFrm">
+            <div class="ks-column ks-page">
+              <div class="ks-header">
+                <section class="ks-title">
+                  <h3> Expense Mass Entry >> {{tabTitle}} </h3>
+
+                  <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                                  'text-success':messageType === 'success',
+                                  'text-primary':messageType === 'info',
+                                  'text-danger':messageType === 'error'
+                                }"> {{saveMessage}} </span>
+                </section>
+              </div>
+              <div class="ks-content">
+                <div class="ks-body">
+                  <div class="container-fluid">
+
+                    <div class="row" style="margin:0px;">
+                      <div class="col-lg-12">
+                        <a href="#/expensemassentry" (click)="selectPreVendor()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/expensemassentry" (click)="selectNextVendor()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/expensemassentry">
+                          <span class="ks-icon fa fa-print pull-right" (click)="print()" style="font-size: 32px;"></span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                        <div class="container-fluid">
+
+
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <md-select placeholder="Select Template" [(ngModel)]="selectedTemplateId"
+                                   name="selectedTemplateId">
+                                    <md-option *ngFor="let type of templateList" [value]="type.templateDefinitionId">
+                                      {{type.templateDefinitionName}}
+                                    </md-option>
+                                  </md-select>
+
+                                  <span *ngIf="selectedTemplateId!=undefined">
+                                    <a class="btn btn-info" href="http://localhost:13187/api/journal/gettemplatecsv.csv?id={{currentTemplate.templateDefinitionId}}"
+                                      target="_blank">
+                                      Download Template</a>
+                                  </span>
+
+                                </div>
+                                <div class="col-md-6" *ngIf="selectedTemplateId!=undefined">
+                                  <span (click)="importData()" class="btn btn-info" md-raised-button>Import Template
+                                    <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div class="row">
+
+                                <div class="col-lg-12 ks-panels-column-section">
+                                  <div class="card panel panel-default panel-table">
+                                    <h5 class="card-header">
+
+                                    </h5>
+                                    <div class="card-block">
+                                      <div style="margin: auto;">
+                                        <data-table id="invoice-grid" headerTitle="" [items]="filterCashList" [itemCount]="filmCount" (reload)="reloadInvoice($event)"
+                                          [limit]="25" [sortBy]="'rating'" [sortAsc]="false" [substituteRows]="false" [expandableRows]="false"
+                                          [translations]="translations" [indexColumnHeader]="'#'" [indexColumn]="false" [selectOnRowClick]="true">
+                                          <data-table-column [property]="'transactionDate'" [header]="'Trx Date'" [sortable]="true">
+                                            <template #dataTableCell let-item="item">
+                                              <span>{{item.transactionDate | date:'yyyy-MM-dd'}}</span>
+                                            </template>
+                                          </data-table-column>
+                                          <data-table-column [property]="'transactionDesc'" [header]="'Desc'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'transactionNumber'" [header]="'Trx Number'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'driverAmount'" [header]="'Driver Amount'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'smeAmount'" [header]="'SME Amount'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'driverId'" [header]="'PTo'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'contractId'" [header]="'Contract'">
+                                          </data-table-column>
+                                          <data-table-column [property]="'truckId'" [header]="'Truck'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'importedExpenseId'" [header]="" [width]="100" [resizable]="true">
+                                            <template #dataTableCell let-item="item">
+                                              <span style="color: grey">
+                                                <span class="ks-icon fa fa-edit" (click)="mapTruckDriverDialog(item)"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                              </span>
+                                            </template>
+                                          </data-table-column>
+                                        </data-table>
+                                        <div>
+                                          <span (click)="saveImportData()" class="btn btn-info" md-raised-button>Save Imported Data
+                                            <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

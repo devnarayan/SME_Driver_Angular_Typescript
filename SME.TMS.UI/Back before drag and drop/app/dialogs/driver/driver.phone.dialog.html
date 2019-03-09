@@ -1,0 +1,30 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<div class="form-group">
+<md-input-container>
+    <input placeholder="Enter phone number" mdInput tabindex="1" 
+    [formControl]="phoneFormControl"  [(ngModel)]="data.phone">
+    <md-error *ngIf="phoneFormControl.hasError('required')">
+            Phone is
+            <strong>required</strong>
+          </md-error>
+          <md-error *ngIf="phoneFormControl.hasError('pattern')">
+                Please enter a valid phone number
+              </md-error>
+</md-input-container>
+</div>
+<div class="form-group">
+        <app-autocomplete [itemList]="driverPhoneTypes" 
+        [getName]="phoneTypeName" [getValue]="phoneTypeValue"
+        [(value)]="data.phoneTypeId" [placeholder]="'Phone Type'" 
+        style="width:80%; margin-top:7px;" ></app-autocomplete>
+</div>
+Primary &nbsp;
+<md-slide-toggle color="primary" title="Primary" tabindex="3" [(ngModel)]="data.isPrimary" [checked]="data.isPrimary==true?1:0">
+</md-slide-toggle>
+<div md-dialog-actions>
+    <button md-button (click)="onOkClick()" tabindex="4">Ok</button>
+    <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

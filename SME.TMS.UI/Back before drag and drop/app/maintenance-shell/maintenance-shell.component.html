@@ -1,0 +1,26 @@
+<div id="body" class="body fill-screen">
+  <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+    <app-nav [currentUser]="currentUser" (filterChange)="filterItem()" [logo]="logoData" [Active]="'Maintenance'"></app-nav>
+    <div class="ks-container">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="half-height">
+            <app-sidebar #sidebar (OnClicked)="SwitchSubpage($event)"></app-sidebar>
+          </div>
+          <div class="half-height">
+            <app-sidebar #itemSidebar (OnClicked)="ItemSelected($event)"></app-sidebar>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="ks-content">
+            <div class="ks-body">
+              <div class="container-fluid">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

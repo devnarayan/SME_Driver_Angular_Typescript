@@ -1,0 +1,36 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<app-autocomplete [formControlObj]="driverNameFormControl" [itemList]="drivers" 
+                  [getName]="getNameFunc" [getValue]="getValueFunc"
+                  [(value)]="data.driverId" [placeholder]="'Driver'"
+                  [(name)]="data.driverFullName"></app-autocomplete>
+<br/><br/>
+<div class="form-group">
+    <md-input-container>
+      <input mdInput [mdDatepicker]="pickerstartdate" tabindex="2" placeholder="Start Date"
+      [formControl]="startDateFormControl"  [(ngModel)]="data.startDate">
+      <button mdSuffix [mdDatepickerToggle]="pickerstartdate"></button>
+      <md-error *ngIf="startDateFormControl.hasError('required')">
+        Start date is
+        <strong>required</strong>
+      </md-error>
+    </md-input-container>
+    <md-datepicker #pickerstartdate></md-datepicker>
+  </div>
+  <div class="form-group">
+    <md-input-container>
+        <!-- [formControl]="contractEndDateFormControl" -->
+      <input mdInput [mdDatepicker]="pickerenddate" tabindex="4" placeholder="EndDate" 
+      name="contractEndDate"  [(ngModel)]="data.endDate">
+      <button mdSuffix [mdDatepickerToggle]="pickerenddate"></button>
+    </md-input-container>
+    <md-datepicker #pickerenddate></md-datepicker>
+  </div>
+<span class="mat-input-error">{{message}}</span>
+<div md-dialog-actions>
+    <!-- [md-dialog-close]="data" -->
+  <button md-button (click)="onOkClick()" tabindex="5">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

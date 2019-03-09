@@ -1,0 +1,308 @@
+<div id="body" class="body fill-screen">
+  <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+    <app-nav [currentUser]="currentUser"  [(filter)]="filterString" [logo]="logoData" [Active]="'Reconcile'"></app-nav>
+    <div class="ks-container">
+      <div class="row">
+        <div class="col-md-2">
+          <app-sidebar #sidebar (OnClicked)="ItemSelected($event)" [filter]="filterString"></app-sidebar>
+        </div>
+        <div class="col-md-10">
+          <div class="ks-column ks-page">
+            <section class="ks-title">
+              <h3>Review >> {{sidebar.GetSelectedKey()}}</h3>
+              <label>Total Outstanding: |</label>
+              <label>Total Drivers: {{driverList.length}} |</label>
+              <label>% Complete</label>
+            </section>
+          </div>
+          <div class="ks-content ks-body">
+            <div class="container-fluid">
+              <div class="row" style="margin: 0px;">
+                <md-input-container>
+                  <input mdInput placeholder="Start Date" [mdDatepicker]="startPicker" />
+                  <button mdSuffix [mdDatepickerToggle]="startPicker"></button>
+                </md-input-container>
+                <md-datepicker #startPicker></md-datepicker>
+                <a [routerLink]="" (click)="selectPreContract()">
+                  <span class="col-lg-1 ks-icon fa fa-caret-left"></span>
+                </a>
+                <a [routerLink]="" (click)="selectNextContract()">
+                  <span class="col-lg-1 ks-icon fa fa-caret-right"></span>
+                </a>
+                <md-input-container>
+                  <input mdInput placeholder="End Date" [mdDatepicker]="endPicker" />
+                  <button mdSuffix [mdDatepickerToggle]="endPicker"></button>
+                </md-input-container>
+                <md-datepicker #endPicker></md-datepicker>
+                <label class="pull-right">Total Due: {{0 | currency:'USD':'symbol'}} | </label>
+                <label class="pull-right">SME Due: {{0 | currency:'USD':'symbol'}}</label>
+              </div>
+              <div class="row">
+                <ul class="nav ks-nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#commissions" data-toggle="tab" data-target="#commissions">
+                      Commissions
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#expenses" data-toggle="tab" data-target="#expenses">
+                      Expenses
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#adjustments" data-toggle="tab" data-target="#adjustments">
+                      Adjustments
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#summary" data-toggle="tab" data-target="#summary">
+                      Summary
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div class="tab-pane active" id="commissions" role="tabpanel">
+                    <div class="container-fluid">
+                      <div class="card">
+                        <div class="card-block">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <md-input-container>
+                                <input mdInput placeholder="Commissions" />
+                              </md-input-container>
+                            </div>
+                            <div class="col-md-2">
+                              <md-input-container>
+                                <input mdInput placeholder="Bonus" />
+                              </md-input-container>
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                              <md-input-container>
+                                <input mdInput placeholder="Approval Commissions">
+                              </md-input-container>
+                              <button md-raised-button class="mat-primary">Reject</button>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <md-input-container>
+                                <input mdInput placeholder="Loads" />
+                              </md-input-container>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <data-table id="commission-grid" headerTitle="" [items]="filteredCommissionData" [itemCount]="filteredCommissionData.length" [sortBy]="'load'" [sortAsc]="false"
+                              [selectColumn]="true" [substituteRows]="false" [expandableRows]="false" [translations]="translations" (reload)="reloadCommissionTable($event)"
+                              [indexColumnHeader]="'#'" [indexColumn]="false" [selectOnRowClick]="true" [pagination]="false" class="table-style">
+                              <data-table-column [property]="'dispatchLoadNumber'" [header]="'Load'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'trackingIdNumber'" [header]="'VIN'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'driverRate'" [header]="'Rate'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'driverFuelSurcharge'" [header]="'FSC'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'terminal'" [header]="'Terminal'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'deliveryDate'" [header]="'DeliveryDate'" [sortable]="true">
+                                <template #dataTableCell let-item="item">
+                                  {{item.deliveryDate | date:'MM/dd/yyyy'}}
+                                </template>
+                              </data-table-column>
+                              <data-table-column [property]="'truckNumber'" [header]="'Truck'">
+                              </data-table-column>
+                              <data-table-column [property]="'active'" [header]="''" [width]="100" [resizable]="true">
+                                <template #dataTableHeader let-item="item">
+                                  <span style="color: rgb(232, 0, 0)"></span>
+                                </template>
+                                <template #dataTableCell let-item="item">
+                                  <span style="color: grey">
+                                    <span class="ks-icon fa fa-edit" (click)="editInvocieDialog(item)"></span>
+                                    <span class="ks-icon fa fa-close margin-left"></span>
+                                  </span>
+                                </template>
+                              </data-table-column>
+                            </data-table>
+                            <div>
+                              <div class="row">
+                                <label class="margin-left">Load({{1}}) | VIN({{3}} | Rate({{167.03}}) | FSC({{28.27}})</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="expenses" class="tab-pane fade">
+                    Coming Soon...
+                  </div>
+                  <div id="adjustments" class="tab-pane fade">
+                    <div class="container-fluid">
+                      <div class="card">
+                        <div class="card-block">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <md-input-container>
+                                <input mdInput placeholder="Commissions" />
+                              </md-input-container>
+                            </div>
+                            <div class="col-md-2">
+                              <md-input-container>
+                                <input mdInput placeholder="Bonus" />
+                              </md-input-container>
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                              <md-input-container>
+                                <input mdInput placeholder="Approval Commissions">
+                              </md-input-container>
+                              <button md-raised-button class="mat-primary">Reject</button>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <md-input-container>
+                                <input mdInput placeholder="Loads" />
+                              </md-input-container>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <data-table id="adjustment-grid" headerTitle="" [items]="adjustmentData" [itemCount]="adjustmentData.length" [sortBy]="'load'" [sortAsc]="false"
+                              [selectColumn]="true" [substituteRows]="false" [expandableRows]="false" [translations]="translations"
+                              [indexColumnHeader]="'#'" [indexColumn]="false" [selectOnRowClick]="true" [pagination]="false">
+                              <data-table-column [property]="'load'" [header]="'Load'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'vin'" [header]="'VIN'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'rate'" [header]="'Rate'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'fuelSurcharge'" [header]="'FSC'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'terminal'" [header]="'Terminal'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'deliveryDate'" [header]="'DeliveryDate'" [sortable]="true">
+                                <template #dataTableCell let-item="item">
+                                  {{item.deliveryDate | date:'MM/dd/yyyy'}}
+                                </template>
+                              </data-table-column>
+                              <data-table-column [property]="'truck'" [header]="'Truck'">
+                              </data-table-column>
+                              <data-table-column [property]="'active'" [header]="''" [width]="100" [resizable]="true">
+                                <template #dataTableHeader let-item="item">
+                                  <span style="color: rgb(232, 0, 0)"></span>
+                                </template>
+                                <template #dataTableCell let-item="item">
+                                  <span style="color: grey">
+                                    <span class="ks-icon fa fa-edit" (click)="editAdjustmentDialog(item)"></span>
+                                    <span class="ks-icon fa fa-close margin-left"></span>
+                                  </span>
+                                </template>
+                              </data-table-column>
+                            </data-table>
+                            <div>
+                              <div class="row">
+                                <label class="margin-left">Load({{1}}) | VIN({{3}} | Rate({{167.03}}) | FSC({{28.27}})</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="summary" class="tab-pane fade">
+                    <div class="container-fluid">
+                      <div class="card">
+                        <div class="card-block">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <div class="row">
+                                <div class="col-md-2">
+                                  <md-input-container>
+                                    <input mdInput placeholder="Total Settlement" />
+                                  </md-input-container>
+                                </div>
+                                <div class="col-md-2">
+                                  <md-input-container>
+                                    <input mdInput placeholder="Left to Settlement" />
+                                  </md-input-container>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <md-input-container>
+                                    <input mdInput placeholder="Loads">
+                                  </md-input-container>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="row">
+                                <a [routerLink]="">Driver Summary</a>
+                              </div>
+                              <div class="row">
+                                <a [routerLink]="">Account Summary</a>
+                              </div>
+                              <div class="row">
+                                <a [routerLink]="">Settlement Summary</a>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <button md-raised-button class="mat-primary">Process</button>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <data-table id="summary-grid" headerTitle="" [items]="summaryData" [itemCount]="summaryData.length" [sortBy]="'driver'" [sortAsc]="false"
+                              [selectColumn]="true" [substituteRows]="false" [expandableRows]="false" [translations]="translations" [limit]="25"
+                              [indexColumnHeader]="'#'" [indexColumn]="false" [selectOnRowClick]="true" [pagination]="true"  [translations]="translations">
+                              <data-table-column [property]="'driver'" [header]="'Driver'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'vinCount'" [header]="'VIN Count'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'loadCount'" [header]="'Load Count'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'comm'" [header]="'Comm'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'expenses'" [header]="'Expenses'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'adjustments'" [header]="'Adjustments'" [sortable]="true">
+                              </data-table-column>
+                              <data-table-column [property]="'state'" [header]="'State'">
+                              </data-table-column>
+                              <data-table-column [property]="'amount'" [header]="'Due Driver'">
+                              </data-table-column>
+                              <data-table-column [property]="'truck'" [header]="'Truck'">
+                              </data-table-column>
+                              <data-table-column [property]="'active'" [header]="''" [width]="125" [resizable]="true">
+                                <template #dataTableHeader let-item="item">
+                                  <span style="color: rgb(232, 0, 0)"></span>
+                                </template>
+                                <template #dataTableCell let-item="item">
+                                  <span style="color: grey">
+                                    <md-icon class="small-font">check_circle</md-icon>
+                                    <span class="ks-icon fa fa-edit"(click)="editSummaryDialog(item)"></span>
+                                    <span class="ks-icon fa fa-close margin-left"></span>
+                                  </span>
+                                </template>
+                              </data-table-column>
+                            </data-table>
+                            <div>
+                              <div class="row">
+                                <label class="margin-left">Load({{1}}) | VIN({{3}} | Rate({{167.03}}) | FSC({{28.27}})</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

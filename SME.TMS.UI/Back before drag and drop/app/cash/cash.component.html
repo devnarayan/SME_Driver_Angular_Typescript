@@ -1,0 +1,162 @@
+<div id="body" class="body">
+  <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+    <app-nav [currentUser]="currentUser" [(filter)]="vendorSearch" (filterChange)="filterItem()" [logo]="logoData" [Active]="'Cash'"></app-nav>
+    <div class="ks-container">
+      <div class="row">
+        <div class="col-md-2">
+          <app-sidebar #sidebar (OnClicked)="selectVendor($event)"></app-sidebar>
+        </div>
+        <div class="col-md-10">
+          <form name="contractFrm">
+            <div class="ks-column ks-page">
+              <div class="ks-header">
+                <section class="ks-title">
+                  <h3> Open Cash Queue >> {{tabTitle}} >> </h3>
+
+                  <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                                  'text-success':messageType === 'success',
+                                  'text-primary':messageType === 'info',
+                                  'text-danger':messageType === 'error'
+                                }"> {{saveMessage}} </span>
+                </section>
+              </div>
+              <div class="ks-content">
+                <div class="ks-body">
+                  <div class="container-fluid">
+
+                    <div class="row" style="margin:0px;">
+                      <div class="col-lg-12">
+                        <a href="#/cash" (click)="selectPreVendor()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/cash" (click)="selectNextVendor()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/cash">
+                          <span class="ks-icon fa fa-print pull-right" (click)="print()" style="font-size: 32px;"></span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                        <div class="container-fluid">
+
+
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <h4>Total Outstanding: ${{cashRootObj.totalOutstandingBalance}}</h4>
+                                </div>
+                                <div class="col-md-3">
+                                  <h4>Total Manufactures: {{cashRootObj.totalVendors}}</h4>
+                                </div>
+                                <div class="col-md-6">
+                                  <h3 class="pull-right">{{cashRootObj.completionPercentage | number:'1.1-2'}} % Complete</h3>
+                                </div>
+                              </div>
+
+                              <div class="row">
+
+                                <div class="col-lg-12 ks-panels-column-section">
+                                  <div class="card panel panel-default panel-table">
+                                    <h5 class="card-header">
+                                      <div class="input-icon icon-right icon icon-lg icon-color-primary">
+                                        <input id="input-group-icon-text" type="text" class="form-control" placeholder="Search Cash Receipt..." [(ngModel)]="cashSearch"
+                                          name="cashSearch" (input)="filterInvoice()">
+                                        <span class="icon-addon">
+                                          <span class="fa fa-search ks-icon"></span>
+                                        </span>
+                                      </div>
+                                      <md-input-container>
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Custoff Date" [(ngModel)]="cutoffDate" (ngModelChange)="changeCutoffDate($event)"
+                                          name="cutoffDate">
+                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+
+                                      </md-input-container>
+                                      <md-datepicker #picker></md-datepicker>
+                                      <span class="btn btn-info buttonAlign" (click)="refresh()" md-raised-button>Refresh</span>
+
+                                      <span class="btn btn-info pull-right buttonAlign" (click)="importToGP()" md-raised-button>Import Selected To GP</span>
+
+                                    </h5>
+
+
+                                    <div class="card-block">
+                                      <div style="margin: auto;">
+                                        <data-table id="invoice-grid" headerTitle="" [items]="filterCashList" [itemCount]="filmCount" (reload)="reloadInvoice($event)"
+                                          [limit]="25" [sortBy]="'rating'" [sortAsc]="false" [selectColumn]="true" [multiSelect]="true"
+                                          [substituteRows]="false" [expandableRows]="false" [translations]="translations" [indexColumnHeader]="'#'"
+                                          [indexColumn]="false" [selectOnRowClick]="true">
+                                          <data-table-column [property]="'trackingIdNumber'" [header]="'Tracking Id Number'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'dispatchLoadNumber'" [header]="'Load Number'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'driverRate'" [header]="'Driver Rate'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'driverFuelSurcharge'" [header]="'FSC'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'manufacturerRate'" [header]="'Rate'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'manufacturerFuelSurcharge'" [header]="'FSC'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'terminal'" [header]="'Terminal'">
+                                          </data-table-column>
+                                          <data-table-column [property]="'paymentDate'" [header]="'Payment Date'" [sortable]="true">
+                                            <template #dataTableCell let-item="item">
+                                              <span>{{item.paymentDate | date:'yyyy-MM-dd'}}</span>
+                                            </template>
+                                          </data-table-column>
+                                          <data-table-column [property]="'paymentNumber'" [header]="'Payment Number'">
+                                          </data-table-column>
+                                          <data-table-column [property]="'truckNumber'" [header]="'Truck Number'">
+                                          </data-table-column>
+                                          <data-table-column [property]="'active'" [header]="" [width]="100" [resizable]="true">
+                                            <template #dataTableCell let-item="item">
+                                              <span style="color: grey">
+                                                <span class="ks-icon fa fa-edit" (click)="editCashDialog(item)"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span class="ks-icon fa fa-close" (click)="deleteCashDialog(item)"></span>
+                                              </span>
+                                            </template>
+                                          </data-table-column>
+                                        </data-table>
+                                        <div>
+                                          <!-- <div>
+                                            <b>Selected:</b>
+                                            <span [textContent]="cashTable.selectedRows.length"></span>
+                                          </div> -->
+                                          <!-- <div *ngFor="let selected of cashTable.selectedRows">
+                                              <span [textContent]="selected.item.invoiceId"></span>
+                                          </div> -->
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

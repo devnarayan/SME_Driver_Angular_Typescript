@@ -1,0 +1,260 @@
+<div class="ks-column ks-page">
+    <div class="ks-header">
+      <section class="ks-title">
+        <h3> Compliance Entry >> {{currentContract.contractName}} </h3>
+  
+        <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                                        'text-success':messageType === 'success',
+                                        'text-primary':messageType === 'info',
+                                        'text-danger':messageType === 'error'
+                                      }"> {{saveMessage}} </span>
+      </section>
+    </div>
+    <div class="ks-content">
+      <div class="ks-body">
+        <div class="container-fluid">
+          <form name="driverfrm">
+            <div class="row" style="margin:0px;">
+              <div class="col-lg-12">
+  
+                <a [routerLink]="" (click)="selectPreContract()">
+                  <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+                </a>
+  
+                <a [routerLink]="" (click)="selectNextContract()">
+                  <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+                </a>
+                <a [routerLink]="" (click)="addNewContract()" title="Add new contract" style="font-size: 20px;">
+                  <span class="ks-icon fa fa-plus"></span> Add
+                </a>
+                <span class="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Due: 123.00 &nbsp;&nbsp;&nbsp; SME Due: 123.00
+                </span>
+  
+                <a href="#" class="pull-right">
+                  <span class="ks-icon fa fa-print" style="font-size: 32px;"></span> Print Schedule
+                </a>
+              </div>
+            </div>
+  
+            <div class="row">
+  
+              <div class="col-lg-12">
+                <div class="ks-tabs-container ks-tabs-default ks-tabs-with-separator ks-tabs-header-default ks-tabs-primary tabs-bordered">
+                  <br>
+                  <div class="container-fluid">
+                    <div class="card">
+                      <div class="card-block">
+                        <div class="row">
+                          <div class="col-lg-6 ks-panels-column-section">
+  
+                            <div class="form-group row">
+                              <div class="col-sm-9">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="License number" [formControl]="addressFormControl" name="driverStreetAddressLine1" [(ngModel)]="currentDriver.driverStreetAddressLine1">
+                                  <md-error *ngIf="addressFormControl.hasError('required')">
+                                    License number is
+                                    <strong>required</strong>
+                                  </md-error>
+                                </md-input-container>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-6">
+                                <md-input-container>
+                                  <input mdInput [mdDatepicker]="hirepicker" placeholder="Hire Date" [formControl]="hiredateFormControl" name="hireDate" [(ngModel)]="currentDriver.hireDate">
+                                  <button mdSuffix [mdDatepickerToggle]="hirepicker"></button>
+                                  <md-error *ngIf="hiredateFormControl.hasError('required')">
+                                    Hire date is
+                                    <strong>required</strong>
+                                  </md-error>
+                                </md-input-container>
+                                <md-datepicker #hirepicker></md-datepicker>
+                              </div>
+                              <div class="col-sm-6">
+                                <md-input-container>
+                                  <input mdInput [mdDatepicker]="termpicker" [formControl]="termdateFormControl" placeholder="Term date" name="termDate" [(ngModel)]="currentDriver.termDate">
+                                  <button mdSuffix [mdDatepickerToggle]="termpicker"></button>
+                                </md-input-container>
+                                <md-datepicker #termpicker></md-datepicker>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-6">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="Name" name="driverFirstName" [formControl]="firstNameFormControl" [(ngModel)]="currentDriver.driverFirstName"
+                                    value="{{currentDriver.driverFirstName}}">
+                                  <md-error *ngIf="firstNameFormControl.hasError('required')">
+                                    Name is
+                                    <strong>required</strong>
+                                  </md-error>
+                                </md-input-container>
+                              </div>
+                              <div class="col-sm-6">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="Alias" name="driverLastName" [formControl]="lastNameFormControl" [(ngModel)]="currentDriver.driverLastName">
+                                  <md-error *ngIf="lastNameFormControl.hasError('required')">
+                                    Alias is
+                                    <strong>required</strong>
+                                  </md-error>
+                                </md-input-container>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-sm-6">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="Frequency" name="driverFirstName" [formControl]="firstNameFormControl" [(ngModel)]="currentDriver.driverFirstName"
+                                    value="{{currentDriver.driverFirstName}}">
+                                </md-input-container>
+                              </div>
+                              <div class="col-sm-6">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="Amount" name="driverFirstName" [formControl]="firstNameFormControl" [(ngModel)]="currentDriver.driverFirstName"
+                                    value="{{currentDriver.driverFirstName}}">
+                                  <md-error *ngIf="firstNameFormControl.hasError('required')">
+                                    Amount is
+                                    <strong>required</strong>
+                                  </md-error>
+                                </md-input-container>
+                              </div>
+  
+                            </div>  
+                            <div class="form-group row">
+  
+                              <div class="col-sm-4">
+                                <md-input-container>
+                                  <input mdInput [mdDatepicker]="cycledatepicker" placeholder="TRX Date" name="cycleduedate" [(ngModel)]="currentDriver.hireDate">
+                                  <button mdSuffix [mdDatepickerToggle]="cycledatepicker"></button>
+                                </md-input-container>
+                                <md-datepicker #cycledatepicker></md-datepicker>
+                              </div>
+                            </div>
+  
+                          </div>
+  
+                          <div class="col-lg-6 ks-panels-column-section">
+  
+                            <div class="form-group row">
+                              <div class="col-sm-9">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="Driver GL Amount" [formControl]="addressFormControl" name="driverStreetAddressLine1" [(ngModel)]="currentDriver.driverStreetAddressLine1">
+                                  <md-error *ngIf="addressFormControl.hasError('required')">
+                                    Driver GL Amount is
+                                    <strong>required</strong>
+                                  </md-error>
+                                </md-input-container>
+                              </div>
+                              <div class="col-sm-2">
+                                <span class="btn btn-info" md-raised-button>Set</span>
+                              </div>
+                            </div>
+  
+                            <div class="form-group row">
+                              <div class="col-sm-9">
+                                <md-input-container class="example-full-width">
+                                  <input mdInput placeholder="SME GL Amount" [formControl]="address2FormControl" name="driverStreetAddressLine2" [(ngModel)]="currentDriver.driverStreetAddressLine2">
+                                </md-input-container>
+                              </div>
+                              <div class="col-sm-2">
+                                <span class="btn btn-info" md-raised-button>Set</span>
+                              </div>
+                            </div>
+  
+                            <div class="form-group row">
+                              <div class="col-sm-11">
+                                <md-input-container class="example-full-width">
+                                  <textarea mdInput placeholder="Description"></textarea>
+                                </md-input-container>
+                              </div>
+  
+                            </div>
+  
+                          </div>
+  
+                        </div>
+                      </div>
+                    </div>
+  
+                    <br>
+                    <div class="row">
+                      <div class="col-lg-6 ks-panels-column-section">
+                        <div class="card panel panel-default panel-table">
+                          <h5 class="card-header">
+                            Documents
+                            <span class="btn btn-info pull-right" md-raised-button (click)="openAddEmailDialog()">Add Supporting Documents</span>
+                          </h5>
+                          <div class="card-block">
+                            <table class="table text-light stacktable large-only">
+                              <thead class="thead-default">
+                                <tr>
+                                  <th> Doc Name </th>
+                                  <th> Action </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>abc.pdf
+                                  </td>
+                                  <td>
+                                    <span class="ks-icon fa fa-close"></span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <br>
+  
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="col-lg-6 ks-panels-column-section">
+                        <div class="card panel panel-default panel-table">
+  
+                          <div class="card-block">
+                            <br>
+                            <div class="row">
+                              <div class="col-md-5"></div>
+                              <div class="col-md-4">
+                                <md-input-container>
+                                  <input mdInput [mdDatepicker]="picker" placeholder="Approval Expenses" name="approvalExpenses" [(ngModel)]="currentDriver.dateOfBirth">
+                                  <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                </md-input-container>
+                                <md-datepicker #picker></md-datepicker>
+                              </div>
+                              <div class="col-md-2">
+                                <a class="btn btn-info" href="#recurringentry">Reject</a>
+                              </div>
+                            </div>
+                            <table class="table text-light stacktable large-only">
+                              <thead class="thead-default">
+                                <tr>
+                                  <th> Settled </th>
+                                  <th> Desc </th>
+                                  <th> Receipt No </th>
+                                  <th> Amount </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td> 02/03/2017</td>
+                                  <td>Payment</td>
+                                  <td> 2332</td>
+                                  <td>$23.300</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+  
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

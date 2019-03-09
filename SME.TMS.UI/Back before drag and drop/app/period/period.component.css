@@ -1,0 +1,59 @@
+.align-center {
+    text-align: center;
+}
+
+.total-width {
+    width: 400px;
+}
+
+.max-width {
+    width: 100%;
+}
+
+.save-width{
+    width: 56px;
+}
+
+.build-height {
+    height: 30px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+tbody{
+    max-height: 420px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+tbody, thead {
+    display: block;
+    width: 100%;
+}
+
+table{
+    width: 450px;
+    border-spacing: 0px;
+}
+
+tbody td, thead th {
+    width: 175px;
+}
+
+thead th:last-child, tbody td:last-child{
+    width: 100px;
+}
+
+.filler {
+    flex-grow: 1;
+}
+
+h5 {
+    line-height: 35px;
+    vertical-align: middle;
+}
+
+.mat-select {
+    margin-bottom: 0px;
+}

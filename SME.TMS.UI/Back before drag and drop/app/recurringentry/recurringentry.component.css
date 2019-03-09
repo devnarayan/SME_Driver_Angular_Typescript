@@ -1,0 +1,49 @@
+form>.row {
+    margin-bottom: 10px;
+}
+.example-form {
+    width: 500px;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .buttonAlign{
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .btn-icon{
+    background-color: transparent !important;  
+    border-color: transparent !important;
+    border:none !important;
+    box-shadow: none;
+    color: #02778c !important;
+    padding-bottom: 5px;
+  }
+  .btn-icon:hover{
+    box-shadow: none;
+    background-color: transparent !important;
+    color: green;
+  }
+  .btn-icon:focus{
+    box-shadow: none;
+    background-color: transparent !important;
+    color: green;
+  }
+  .card-block{
+    padding-bottom: 0px;
+  }
+  .form-group{
+    margin-bottom: 2px;
+  }
+  .currencyLabel{
+    padding-top: 8px;
+  }
+  .marginRight{
+    margin-right: 10px;
+  }
+  .fa-close{
+  cursor: pointer;
+  }

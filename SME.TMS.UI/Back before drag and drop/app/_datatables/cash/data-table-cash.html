@@ -1,0 +1,43 @@
+<div style="margin: auto;">
+    <data-table id="films-grid" headerTitle="" [items]="cash" [itemCount]="filmCount" (reload)="reloadFilms($event)" [limit]="8"
+        [sortBy]="'rating'" [sortAsc]="false" [selectColumn]="true" [multiSelect]="true" [substituteRows]="false" [expandableRows]="false"
+        [translations]="translations" [indexColumnHeader]="'#'" [indexColumn]="false" [selectOnRowClick]="true">
+        <data-table-column [property]="'load'" [header]="'Load'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'trackingId'" [header]="'Tracking Id Number'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'rate1'" [header]="'Rate'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'fsc1'" [header]="'FSC'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'rate2'" [header]="'Rate'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'fsc2'" [header]="'FSC'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'terminal'" [header]="'Terminal'">
+        </data-table-column>
+        <data-table-column [property]="'paymentDate'" [header]="'Payment Date'" [sortable]="true">
+            <template #dataTableCell let-item="item">
+                <span>{{item.paymentDate | date:'yyyy-MM-dd'}}</span>
+            </template>
+        </data-table-column>
+        <data-table-column [property]="'paymentNumber'" [header]="'Payment Number'">
+        </data-table-column>
+        <data-table-column [property]="'active'" [header]="'Action'" [width]="100" [resizable]="true">
+            <template #dataTableHeader let-item="item">
+                <span style="color: rgb(232, 0, 0)">Action</span>
+            </template>
+            <template #dataTableCell let-item="item">
+                <span style="color: grey">
+                    <span class="fa fa-check"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="fa fa-times"></span>
+                </span>
+            </template>
+        </data-table-column>
+    </data-table>
+    <div style="margin-top: 10px">
+        <b>Selected:</b>
+        <span *ngIf="cashTable.selectedRow == null"><i>No item selected</i></span>
+        <span [textContent]="cashTable.selectedRow && cashTable.selectedRow.item.title"></span>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+</div>
+<md-input-container>
+  <input placeholder="Enter email address" mdInput tabindex="1" 
+  [formControl]="emailFormControl" [(ngModel)]="data.email">
+  <md-error *ngIf="emailFormControl.hasError('required')">
+      Email is
+      <strong>required</strong>
+    </md-error>
+    <md-error *ngIf="emailFormControl.hasError('pattern')">
+        Please enter a valid email address
+      </md-error>
+</md-input-container>
+<br/> Primary &nbsp;
+<md-slide-toggle color="primary" tabindex="2" [(ngModel)]="data.isPrimary" [checked]="data.isPrimary==true?1:0">
+</md-slide-toggle>
+<md-datepicker #pickerenddate></md-datepicker>
+<div md-dialog-actions>
+  <button md-button (click)="onOkClick()" tabindex="3">Ok</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

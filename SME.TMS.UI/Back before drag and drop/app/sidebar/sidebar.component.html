@@ -1,0 +1,15 @@
+<!-- BEGIN DEFAULT SIDEBAR -->
+<div class="ks-column ks-sidebar ks-info">
+    <div class="ks-wrapper">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="nav-item dropdown" *ngFor="let item of itemList | stringFilter:lambda:filter">
+                <a [ngClass]="{'active-class':isActive(item[1])}" class="nav-link" (click)="LinkClicked(item[1])" [routerLink]=""
+                    role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="ks-icon fa fa-user"></span>
+                    <span>{{item[0]}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- END DEFAULT SIDEBAR -->

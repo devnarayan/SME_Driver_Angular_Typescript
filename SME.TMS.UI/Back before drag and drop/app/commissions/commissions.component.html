@@ -1,0 +1,53 @@
+<div class="ks-header">
+  <section class="ks-title">
+    <h3>Commissions Master</h3>
+  </section>
+</div>
+<div class="row" style="margin: 0px;">
+  <a [routerLink]="" (click)="selectPrevCommission()">
+    <span class="col-lg-1 ks-icon fa fa-caret-left"></span>
+  </a>
+  <label class="name-width">'currentCommission.commissionId'</label>
+  <a [routerLink]="" (click)="selectNextCommission()">
+    <span class="col-lg-1 ks-icon fa fa-caret-right"></span>
+  </a>
+  <label>Total Drivers: 'commissionsList.length'</label>
+</div>
+<div class="row">
+  <div class="card">
+    <div class="card-block">
+        <div class="col-lg-6 ks-panels-column-section">
+            <div class="form-group row">
+                <div class="col-sm-9">
+                  <md-input-container class="example-full-width">
+                    <input mdInput placeholder="Driver" [formControl]="driverNameControl" name="driverFullName">Driver Name
+                  </md-input-container>
+                </div>
+              </div>
+          <div class="form-group row">
+            <div class="col-sm-9">
+              <md-input-container class="example-full-width">
+                <input mdInput placeholder="Driver GL Account" [formControl]="driverGLFormControl" name="driverGLAccount">Driver GL
+              </md-input-container>
+            </div>
+            <div class="col-sm-2">
+              <span class="btn btn-info" md-raised-button>Set</span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-9">
+              <md-input-container class="example-full-width">
+                <input mdInput placeholder="SME GL Account" [formControl]="smeGLFormControl" name="smeGLAccount">SME GL
+              </md-input-container>
+            </div>
+            <div class="col-sm-2">
+              <span class="btn btn-info" md-raised-button>Set</span>
+            </div>
+            <button class="btn btn-info pull-right btn-icon" md-icon-button (click)="saveCommissions()">
+                <span class="ks-icon fa fa-save pull-right" style="font-size: 32px;"></span>
+            </button>
+          </div>
+        </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,320 @@
+<div id="body" class="body">
+  <div class="ks-navbar-fixed ks-sidebar-default ks-sidebar-fixed ks-theme-primary ks-page-loading">
+    <app-nav [currentUser]="currentUser" [(filter)]="vendorSearch" (filterChange)="filterItem()" [logo]="logoData" [Active]="'Invoice'"></app-nav>
+    <div class="ks-container">
+      <div class="row">
+        <div class="col-md-2">
+          <app-sidebar #sidebar (OnClicked)="selectVendor($event)"></app-sidebar>
+        </div>
+        <div class="col-md-10">
+          <form name="contractFrm">
+            <div class="ks-column ks-page">
+              <div class="ks-header">
+                <section class="ks-title">
+                  <h3> Open Invoice Queue >> {{tabTitle}} >> </h3>
+
+                  <span class="fa fa-info-circle pull-right paddingRight" [ngClass]="{
+                                  'text-success':messageType === 'success',
+                                  'text-primary':messageType === 'info',
+                                  'text-danger':messageType === 'error'
+                                }"> {{saveMessage}} </span>
+                </section>
+              </div>
+              <div class="ks-content">
+                <div class="ks-body">
+                  <div class="container-fluid">
+
+                    <div class="row" style="margin:0px;">
+                      <div class="col-lg-12">
+                        <a href="#/invoice" (click)="selectPreVendor()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-left" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/invoice" (click)="selectNextVendor()">
+                          <span class="col-lg-1 ks-icon fa fa-caret-right" style="font-size: 32px;"></span>
+                        </a>
+
+                        <a href="#/invoice">
+                          <span class="ks-icon fa fa-print pull-right" (click)="print()" style="font-size: 32px;"></span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-lg-12">
+                        <div class="container-fluid">
+
+
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <h4>Total Outstanding: ${{invoiceObj.totalOutstandingBalance}}</h4>
+                                </div>
+                                <div class="col-md-3">
+                                  <h4>Total Manufactures: {{invoiceObj.totalVendors}}</h4>
+                                </div>
+                                <div class="col-md-6">
+                                  <h3 class="pull-right">{{invoiceObj.completionPercentage | number:'1.1-2'}} % Complete</h3>
+                                </div>
+                              </div>
+
+                              <div class="row">
+
+                                <div class="col-lg-12 ks-panels-column-section">
+                                  <div class="card panel panel-default panel-table">
+                                    <h5 class="card-header">
+                                      <div class="input-icon icon-right icon icon-lg icon-color-primary">
+                                        <input id="input-group-icon-text" type="text" class="form-control" [(ngModel)]="invoiceSearch" name="invoiceSearch" placeholder="Search Invoice..."
+                                          (input)="filterInvoice()">
+                                        <span class="icon-addon">
+                                          <span class="fa fa-search ks-icon"></span>
+                                        </span>
+                                      </div>
+                                      <md-input-container>
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Custoff Date" [(ngModel)]="cutoffDate" (ngModelChange)="changeCutoffDate($event)"
+                                          name="cutoffDate">
+                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+
+                                      </md-input-container>
+                                      <md-datepicker #picker></md-datepicker>
+                                      <span class="btn btn-info buttonAlign" (click)="refresh()" md-raised-button>Refresh</span>
+
+                                      <span class="btn btn-info pull-right buttonAlign" (click)="importToGP()" md-raised-button>Import Selected To GP</span>
+
+
+                                    </h5>
+
+
+                                    <div class="card-block">
+
+                                      <!-- <table class="table text-light stacktable large-only">
+                                        <thead class="thead-default">
+                                          <tr>
+                                            <th> Load</th>
+                                            <th> Tracking Id Number </th>
+                                            <th> Rate </th>
+                                            <th> FSC </th>
+                                            <th> Rate </th>
+                                            <th> FSC </th>
+                                            <th> Terminal </th>
+                                            <th> Delivery Date </th>
+                                            <th> Truck </th>
+                                            <th> Action </th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td> 1234</td>
+                                                <td> dfdk3lj3-34lk3-34 </td>
+                                                <td> $43.33 </td>
+                                                <td> $123.1 </td>
+                                                <td> $121.0 </td>
+                                                <td> $2.0 </td>
+                                                <td> 22 </td>
+                                                <td> 9/20/2011 </td>
+                                                <td> 123456 </td>
+                                                <td> 
+                                                    <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                    <span class="ks-icon fa fa-close"></span>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                  <td> 1234</td>
+                                                  <td> dfdk3lj3-34lk3-34 </td>
+                                                  <td> $43.33 </td>
+                                                  <td> $123.1 </td>
+                                                  <td> $121.0 </td>
+                                                  <td> $2.0 </td>
+                                                  <td> 22 </td>
+                                                  <td> 9/20/2011 </td>
+                                                  <td> 123456 </td>
+                                                  <td> 
+                                                      <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                      <span class="ks-icon fa fa-close"></span>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 1234</td>
+                                                    <td> dfdk3lj3-34lk3-34 </td>
+                                                    <td> $43.33 </td>
+                                                    <td> $123.1 </td>
+                                                    <td> $121.0 </td>
+                                                    <td> $2.0 </td>
+                                                    <td> 22 </td>
+                                                    <td> 9/20/2011 </td>
+                                                    <td> 123456 </td>
+                                                    <td> 
+                                                        <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                        <span class="ks-icon fa fa-close"></span>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td> 1234</td>
+                                                      <td> dfdk3lj3-34lk3-34 </td>
+                                                      <td> $43.33 </td>
+                                                      <td> $123.1 </td>
+                                                      <td> $121.0 </td>
+                                                      <td> $2.0 </td>
+                                                      <td> 22 </td>
+                                                      <td> 9/20/2011 </td>
+                                                      <td> 123456 </td>
+                                                      <td> 
+                                                          <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                          <span class="ks-icon fa fa-close"></span>
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> 1234</td>
+                                                        <td> dfdk3lj3-34lk3-34 </td>
+                                                        <td> $43.33 </td>
+                                                        <td> $123.1 </td>
+                                                        <td> $121.0 </td>
+                                                        <td> $2.0 </td>
+                                                        <td> 22 </td>
+                                                        <td> 9/20/2011 </td>
+                                                        <td> 123456 </td>
+                                                        <td> 
+                                                            <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                            <span class="ks-icon fa fa-close"></span>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td> 1234</td>
+                                                          <td> dfdk3lj3-34lk3-34 </td>
+                                                          <td> $43.33 </td>
+                                                          <td> $123.1 </td>
+                                                          <td> $121.0 </td>
+                                                          <td> $2.0 </td>
+                                                          <td> 22 </td>
+                                                          <td> 9/20/2011 </td>
+                                                          <td> 123456 </td>
+                                                          <td> 
+                                                              <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                              <span class="ks-icon fa fa-close"></span>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td> 1234</td>
+                                                            <td> dfdk3lj3-34lk3-34 </td>
+                                                            <td> $43.33 </td>
+                                                            <td> $123.1 </td>
+                                                            <td> $121.0 </td>
+                                                            <td> $2.0 </td>
+                                                            <td> 22 </td>
+                                                            <td> 9/20/2011 </td>
+                                                            <td> 123456 </td>
+                                                            <td> 
+                                                                <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                                <span class="ks-icon fa fa-close"></span>
+                                                            </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td> 1234</td>
+                                                              <td> dfdk3lj3-34lk3-34 </td>
+                                                              <td> $43.33 </td>
+                                                              <td> $123.1 </td>
+                                                              <td> $121.0 </td>
+                                                              <td> $2.0 </td>
+                                                              <td> 22 </td>
+                                                              <td> 9/20/2011 </td>
+                                                              <td> 123456 </td>
+                                                              <td> 
+                                                                  <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                                  <span class="ks-icon fa fa-close"></span>
+                                                              </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> 1234</td>
+                                                                <td> dfdk3lj3-34lk3-34 </td>
+                                                                <td> $43.33 </td>
+                                                                <td> $123.1 </td>
+                                                                <td> $121.0 </td>
+                                                                <td> $2.0 </td>
+                                                                <td> 22 </td>
+                                                                <td> 9/20/2011 </td>
+                                                                <td> 123456 </td>
+                                                                <td> 
+                                                                    <span class="ks-icon fa fa-edit"></span> &nbsp;&nbsp;&nbsp;  
+                                                                    <span class="ks-icon fa fa-close"></span>
+                                                                </td>
+                                                              </tr>
+                                        </tbody>
+                                      </table>
+                                       -->
+                                      <!-- <data-table-demo-2></data-table-demo-2> -->
+                                      <div style="margin: auto;">
+                                        <data-table id="invoice-grid" headerTitle="" [items]="filteredinvoiceList" [itemCount]="filmCount" (reload)="reloadInvoice($event)"
+                                          [limit]="25" [sortBy]="'rating'" [sortAsc]="false" [selectColumn]="true" [multiSelect]="true"
+                                          [substituteRows]="false" [expandableRows]="false" [translations]="translations" [indexColumnHeader]="'#'"
+                                          [indexColumn]="false" [selectOnRowClick]="true">
+                                          <!-- <data-table-column [property]="'invoiceId'" [header]="'InvoiceId'" [sortable]="true">
+                                            </data-table-column> -->
+                                          <data-table-column [property]="'trackingIdNumber'" [header]="'Tracking Id Number'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'dispatchLoadNumber'" [header]="'Load Number'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'driverRate'" [header]="'Driver Rate'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'driverFuelSurcharge'" [header]="'FSC'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'manufacturerRate'" [header]="'Rate'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'manufacturerFuelSurcharge'" [header]="'FSC'" [sortable]="true">
+                                          </data-table-column>
+                                          <data-table-column [property]="'terminal'" [header]="'Terminal'">
+                                          </data-table-column>
+                                          <data-table-column [property]="'deliveryDate'" [header]="'Delivery Date'" [sortable]="true">
+                                            <template #dataTableCell let-item="item">
+                                              <span>{{item.deliveryDate | date:'yyyy-MM-dd'}}</span>
+                                            </template>
+                                          </data-table-column>
+                                          <data-table-column [property]="'truckNumber'" [header]="'Truck Number'">
+                                          </data-table-column>
+                                          <data-table-column [property]="'active'" [header]="" [width]="100" [resizable]="true">
+                                            <template #dataTableCell let-item="item">
+                                              <span style="color: grey">
+                                                <span class="ks-icon fa fa-edit" (click)="editInvocieDialog(item)"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span class="ks-icon fa fa-close" (click)="deleteInvoiceDialog(item)"></span>
+                                              </span>
+                                            </template>
+                                          </data-table-column>
+                                        </data-table>
+                                        <div>
+                                          <!-- <div>
+                                              <b>Selected:</b>
+                                              <span [textContent]="invoiceTable.selectedRows.length"></span>
+                                          </div> -->
+                                          <!-- <div *ngFor="let selected of invoiceTable.selectedRows">
+                                              <span [textContent]="selected.item.invoiceId"></span>
+                                          </div> -->
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

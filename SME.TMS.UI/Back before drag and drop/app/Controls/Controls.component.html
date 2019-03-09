@@ -1,0 +1,94 @@
+<md-toolbar color="primary">
+    
+        <span>MyCompany</span>
+        <span class="example-spacer"></span>
+        <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon> Menu</button>
+        
+    </md-toolbar>
+    <md-tab-group>
+      <md-tab>
+        <ng-template md-tab-label>
+          Autocomplate
+        </ng-template>
+        <autocomplete-example>Loading Material Docs example...</autocomplete-example>
+      </md-tab>
+       <md-tab>
+        <ng-template md-tab-label>
+          CheckBox
+        </ng-template>
+        <checkbox-example>Loading Material Docs example...</checkbox-example>
+      </md-tab>
+      <md-tab>
+        <ng-template md-tab-label>
+          Date picker
+        </ng-template>
+         <datepicker-example>Loading Material Docs example...</datepicker-example>
+      </md-tab>
+        <md-tab>
+          <ng-template md-tab-label>
+            Input
+          </ng-template>
+          <input-example>Loading Input .... </input-example>
+        </md-tab>
+        <md-tab>
+          <ng-template md-tab-label>
+            Radio button
+          </ng-template>
+          <radio-example>Loading Radio button...</radio-example>
+        </md-tab>
+      <md-tab>
+        <ng-template md-tab-label>
+          Select
+        </ng-template>
+        <select-example>Loading Radio button...</select-example>
+      </md-tab>
+       <md-tab>
+        <ng-template md-tab-label>
+          Slider
+        </ng-template>
+        <slider-example>Loading Radio button...</slider-example>
+      </md-tab>
+      <md-tab>
+        <ng-template md-tab-label>
+          Slide Toggle
+        </ng-template>
+        <slide-toggle-example>Loading slide toggle</slide-toggle-example>
+      </md-tab>
+       <md-tab>
+        <ng-template md-tab-label>
+          Grid List
+        </ng-template>
+        <grid-example>Loading Grid List</grid-example>
+      </md-tab>
+       <md-tab>
+        <ng-template md-tab-label>
+          Button
+        </ng-template>
+        <button-example>Loading Grid List</button-example>
+      </md-tab> 
+    
+       <md-tab>
+        <ng-template md-tab-label>
+          Button Toggle
+        </ng-template>
+        <button-toggle-example>Loading Grid List</button-toggle-example>
+      </md-tab>
+      
+    </md-tab-group>
+    <md-menu #appMenu="mdMenu">
+      <button md-menu-item> Settings </button>
+      <button md-menu-item> Help </button>
+    </md-menu>
+    <md-card class="example-card" *ngFor="let data of (myData ? myData.slice(0,10): []); let i = index">
+    
+      <img md-card-image src="{{ data.url }}">
+      <md-card-header>
+        <md-card-title>{{ data.title }}</md-card-title>
+      </md-card-header>
+    
+      <md-card-actions>
+        <button *ngIf="data.liked>=0" md-button (click)="likeMe(i)">LIKE <sup>{{data.liked}}</sup></button>
+        <button md-button>SHARE</button>
+      </md-card-actions>
+      
+    </md-card>

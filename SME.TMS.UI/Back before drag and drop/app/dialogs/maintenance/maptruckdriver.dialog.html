@@ -1,0 +1,46 @@
+<h1 md-dialog-title>{{data.title}}</h1>
+<div md-dialog-content>
+
+
+  <div class="input-icon icon-right icon icon-lg icon-color-primary">
+    <input id="input-group-icon-text" type="text" class="form-control" placeholder="Search Truck Driver..." [(ngModel)]="driverSearch"
+      name="driverSearch" (input)="filterInvoice()">
+    <span class="icon-addon">
+      <span class="fa fa-search ks-icon"></span>
+    </span>
+  </div>
+
+  <span class="btn btn-info buttonAlign" (click)="refresh()" md-raised-button>Refresh</span>
+
+  <div class="card-block">
+    <div style="margin: auto;">
+      <data-table id="invoice-grid" headerTitle="" [items]="filteredItems" [itemCount]="filmCount" (reload)="reloadInvoice($event)"
+        [limit]="25" [sortBy]="'truckNumber'" [sortAsc]="false" 
+       [substituteRows]="false"
+        [expandableRows]="false" [translations]="translations" [indexColumnHeader]="'#'" [indexColumn]="false">
+        <data-table-column [property]="'truckNumber'" [header]="'Truck Number'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'driverName'" [header]="'Driver Name'" [sortable]="true">
+        </data-table-column>
+        <data-table-column [property]="'driverId'" [header]="" [width]="100" [resizable]="true">
+          <template #dataTableCell let-item="item">
+            <span (click)="selectTruckDriver(item)" class="btn btn-primary btn-sm">
+              <span class="ks-icon fa fa-plus">
+              </span>&nbsp;Select
+            </span> &nbsp;&nbsp;
+          </template>
+        </data-table-column>
+      </data-table>
+      <div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<div md-dialog-actions>
+  <button type="submit" md-button [disabled]="loading">Submit
+    <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+  </button>
+  <button type="button" md-button (click)="clearFile()">Cancel</button>
+</div>
